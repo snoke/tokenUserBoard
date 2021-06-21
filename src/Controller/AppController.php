@@ -19,9 +19,9 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("api/me", methods={"GET"})
-     * 
      * this method extracts user credentials stored as payload within the token
+     * 
+     * @Route("api/me", methods={"GET"})
      */
     public function getCredentials(Encoder $jwtEncoder,Request $request): Response
     {
