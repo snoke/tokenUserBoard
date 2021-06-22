@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("write")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BoardPost::class, mappedBy="author")
+     */
+    private $boardPosts;
+
+    public function __construct()
+    {
+        $this->boardPosts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,5 +139,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|BoardPost[]
+     */
+    public function getBoardPosts(): Collection
+    {
+        return $this->boardPosts;
+    }
+
+    public function addBoardPost(BoardPost $boardPost): self
+    {
+        if (!$this->boardPosts->contains($boardPost)) {
+            $this->boardPosts[] = $boardPost;
+            $boardPost->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardPost(BoardPost $boardPost): self
+    {
+        if ($this->boardPosts->removeElement($boardPost)) {
+            // set the owning side to null (unless already changed)
+            if ($boardPost->getAuthor() === $this) {
+                $boardPost->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }
