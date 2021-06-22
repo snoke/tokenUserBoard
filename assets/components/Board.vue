@@ -19,7 +19,11 @@
                 <div class="jumbotron">
                     <div class="card">
                         <div class="card-body">{{category.name}}</div>
-                        <div class="card-text">asd</div>
+                        <div class="card-text">
+                            <ul>
+                                <li v-bind:key="topic.id" v-for="topic in board_topics">{{topic.name}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,6 +46,7 @@ export default {
             slide:0,
             page:1,
             board_categories:[],
+            board_category:[],
             board_topics:[],
         }
     },
@@ -54,11 +59,24 @@ export default {
             this.loadCategories();
     },
     methods: {
+        loadTopics(category) {
+            category.boardTopics.forEach(element => 
+                axios
+                    .get(element +'.json',{
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
+                        }
+                    })
+                .then(response => (this.board_topics.push(response.data)))
+                //.then(response => (this.board_topics[response.data.id]=response.data))
+            );
+        },
       onSlideStart(slide) {
           this.board_category=null;
       },
       onSlideEnd(slide) {
-        console.log(this.board_categories[slide]);
+          this.board_topics=[];
             axios
                 .get('/api/board_categories/'+this.board_categories[slide].id +'.json',{
                     headers: {
@@ -66,7 +84,7 @@ export default {
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (this.board_category=response.data));
+            .then(response => (this.board_categories[slide]=response.data,this.loadTopics(this.board_categories[slide])));
       },
         loadCategories() {
             axios
@@ -76,7 +94,7 @@ export default {
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (this.board_categories=response.data));
+            .then(response => (this.board_categories=response.data,this.loadTopics(this.board_categories[0])));
         },
         submit(e) {
             e.preventDefault();

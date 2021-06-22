@@ -29,6 +29,11 @@ class BoardPost
      */
     private $message;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BoardTopic::class, inversedBy="boardPosts")
+     */
+    private $BoardTopic;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +59,18 @@ class BoardPost
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getBoardTopic(): ?BoardTopic
+    {
+        return $this->BoardTopic;
+    }
+
+    public function setBoardTopic(?BoardTopic $BoardTopic): self
+    {
+        $this->BoardTopic = $BoardTopic;
 
         return $this;
     }
