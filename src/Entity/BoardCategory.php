@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BoardCategoryRepository::class)
- * @ApiResource(attributes={"order"={"id": "DESC"}})
+ * @ApiResource
  */
 class BoardCategory
 {

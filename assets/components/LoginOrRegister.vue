@@ -1,10 +1,42 @@
 <template>
-  <div>
-  <b-tabs content-class="mt-3">
-    <b-tab title="Login" active><Login /></b-tab>
-    <b-tab title="Register"><Register /></b-tab>
-  </b-tabs>
-  </div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="0"
+      controls
+      indicators
+      background="#ababab"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+      class="main_carousel h-100"
+    >
+
+      <!-- -->
+      <b-carousel-slide>
+        <template #img>
+            <div class="main_carousel_slide_container d-flex justify-content-center">
+                <div class="jumbotron">
+                    <div class="card">
+                        <div class="card-body"><Login /></div>
+                    </div>
+                </div>
+            </div>
+        </template>
+      </b-carousel-slide>
+      <!-- -->
+      <b-carousel-slide>
+        <template #img>
+            <div class="main_carousel_slide_container d-flex justify-content-center">
+                <div class="jumbotron">
+                    <div class="card">
+                        <div class="card-body"><Register /></div>
+                    </div>
+                </div>
+            </div>
+        </template>
+      </b-carousel-slide>
+
+    </b-carousel>
 </template>
 
 

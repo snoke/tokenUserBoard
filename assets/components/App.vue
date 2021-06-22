@@ -1,65 +1,8 @@
 <template>
   <div class="h-100">
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="0"
-      controls
-      indicators
-      background="#ababab"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-      class="main_carousel h-100"
-    >
 
-      <!-- -->
-      <b-carousel-slide>
-        <template #img>
-            <div class="main_carousel_slide_container d-flex justify-content-center">
-                <div class="jumbotron">
-                    <div class="card">
-                        <div class="card-body">Board</div>
-                    </div>
-                </div>
-            </div>
-        </template>
-      </b-carousel-slide>
-      <!-- -->
-      <b-carousel-slide>
-        <template #img>
-            <div class="main_carousel_slide_container d-flex justify-content-center">
-                <div class="jumbotron">
-                    <div class="card">
-                        <div class="card-body">Chat</div>
-                    </div>
-                </div>
-            </div>
-        </template>
-      </b-carousel-slide>
-      <!-- -->
-      <b-carousel-slide>
-        <template #img>
-            <div class="main_carousel_slide_container d-flex justify-content-center">
-                <div class="jumbotron">
-                    <div class="card">
-                        <div class="card-body">Settings</div>
-                    </div>
-                </div>
-            </div>
-        </template>
-      </b-carousel-slide>
-
-    </b-carousel>
-
-      <!--
-      <div v-if="unauthenticated" >
-          <LoginOrRegister />
-      </div>
-      <div v-if="authenticated" >
-          <Board />
-          <a   @click="logout">Logout</a>
-      </div>
-      -->
+          <LoginOrRegister v-if="unauthenticated"/>
+          <Board v-if="authenticated" />
   </div> 
 </template>
 
