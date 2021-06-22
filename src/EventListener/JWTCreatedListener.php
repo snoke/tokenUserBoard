@@ -2,7 +2,8 @@
 namespace App\EventListener;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
-class JWTCreatedListener {
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+class JWTCreatedListener extends AbstractController {
 
 /**
  * @var RequestStack
@@ -24,9 +25,9 @@ public function __construct(RequestStack $requestStack)
      */
     public function onJWTCreated(JWTCreatedEvent $event)
     {
-
+        $user = $this->getUser();
         $payload       = $event->getData();
-        $payload['test123'] = 'test123';
+        $payload['id'] = $user->getId();
 
         $event->setData($payload);
     }

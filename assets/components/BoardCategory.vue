@@ -9,17 +9,20 @@
             <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}">{{topic.name}}</router-link>
          </li>
     </ul>
+    <TopicForm />
 </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import BreadCrumb from './BreadCrumb.vue'
+import TopicForm from './Form/TopicForm.vue'
 
 export default {
     name: "BoardCategory",
     components: {
-        BreadCrumb
+        BreadCrumb,
+        TopicForm
     },
     data () { 
         return {

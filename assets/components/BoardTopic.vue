@@ -8,17 +8,20 @@
         <li v-bind:key="post.id" v-for="post in board_posts">{{post.message}}
          </li>
     </ul>
+    <PostForm />
 </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import BreadCrumb from './BreadCrumb.vue'
+import PostForm from './Form/PostForm.vue'
 
 export default {
     name: "BoardTopic",
     components: {
-        BreadCrumb
+        BreadCrumb,
+        PostForm
     },
     data () { 
         return {

@@ -65,6 +65,55 @@ import App from './components/App';
 
 new Vue({
     el: '#app',
+    data: {
+        unauthenticated:false,
+        authenticated:false,
+        token:null,
+        user: null
+    },
     render: h => h(App),
     router: router,
+    created () {
+        this.extractToken();
+    },
+    mounted() {
+        this.$on('userAuthenticated', () => {
+            this.extractToken();
+        })
+    },
+    methods: {
+          extractToken() {
+              this.token = Vue.$cookies.get("Bearer");
+              if (this.token==null) {
+                  this.setAuthenticated(false)
+                  return false;
+              } 
+  
+              axios
+                  .get('/api/me',{
+                      headers: {
+                          'Content-Type': 'application/json',
+                          "Authorization": "Bearer " + this.token
+                      }
+                  })
+              .then(response => (this.user=response.data,this.setAuthenticated())).catch(error=>(this.setAuthenticated(false)));
+        
+          },
+          setAuthenticated(val=true) {
+              this.authenticated=val;
+              this.unauthenticated=!val;
+              if (val) {
+                  this.$router.push({ name: 'Board'})
+              } else {
+                  this.$router.push({ name: 'Auth'})
+              }
+          },
+          logout() {
+              Vue.$cookies.remove("User");
+              Vue.$cookies.remove("Bearer");
+              this.token = null;
+              this.user = null;
+              this.setAuthenticated(false)
+          }
+      },
 });
