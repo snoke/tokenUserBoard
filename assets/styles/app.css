@@ -6,3 +6,6 @@ body,html {
 .h-100 {
     height:100%;
 }
+.breadcrumb_element,.breadcrumb_seperator {
+    float:left
+}

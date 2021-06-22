@@ -11,6 +11,14 @@ use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface as Encoder;
 
 class AppController extends AbstractController
 {
+    /**
+     * @Route("/board/{route}", name="board", requirements={"route"=".+"})
+     */
+    public function board(): Response
+    {
+        return $this->render('app/index.html.twig', [
+        ]);
+    }
     #[Route('/', name: 'app_index')]
     #[Route('/{route}', name: 'app_route')]
     public function index(): Response

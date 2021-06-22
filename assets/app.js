@@ -15,6 +15,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 import Auth from './components/Auth.vue'
 import Board from './components/Board'
+import BoardCategory from './components/BoardCategory'
+import BoardTopic from './components/BoardTopic'
 Vue.use(VueRouter)
 const router = new VueRouter({  
     mode:'history',
@@ -29,6 +31,18 @@ const router = new VueRouter({
                 name: "Board",
                 path: '/board', 
                 component:  Board,
+                props: true,
+        },
+        { 
+                name: "BoardCategory",
+                path: '/board/:categoryId', 
+                component:  BoardCategory,
+                props: true,
+        },
+        { 
+                name: "BoardTopic",
+                path: '/board/:categoryId/:topicId', 
+                component:  BoardTopic,
                 props: true,
         },
     ]
