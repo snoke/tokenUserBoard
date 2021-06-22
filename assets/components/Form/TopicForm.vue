@@ -1,8 +1,14 @@
 <template>
       <form v-on:submit="submit" id="topicForm">
-        <input type="text" name="name" />
-        <input type="text" name="message" />
-        <input type="submit" />
+          <div class="row">
+            <input type="text" name="name"  placeholder="Titel" />
+            </div>
+          <div class="row">
+        <textarea name="message"  placeholder="Nachricht" />
+            </div>
+          <div class="row">
+        <input type="submit" class="btn btn-primary" value="Topic erstellen"  />
+            </div>
     </form>
 
 </template>

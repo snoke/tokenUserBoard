@@ -11,11 +11,13 @@
 import Vue from 'vue'
 import Auth from './Auth';
 import Board from './Board';
+import BreadCrumb from './BreadCrumb.vue'
 export default {
     name: "App",
     components: {
         Auth,
-        Board
+        Board,
+        BreadCrumb
     },
     data () { 
         return {

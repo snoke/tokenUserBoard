@@ -4,9 +4,9 @@
         <div v-if="this.loading == 1" class="spinner-border text-primary" role="status">
             <span class="sr-only" ></span>
         </div>
-        <ul>
-            <li v-bind:key="category.id" v-for="category in board_categories">
-                <router-link :to="{ name: 'BoardCategory', params: { categoryId: category.id}}">{{category.name}}</router-link>
+        <ul class="list-group" v-if="this.loading == 0">
+            <li v-bind:key="category.id" v-for="category in board_categories" class="list-group-item" @click="$root.$emit('update')">
+                <router-link :to="{ name: 'BoardCategory', params: { categoryId: category.id}}" >{{category.name}}</router-link>
             </li>
         </ul>
     </div>
@@ -14,8 +14,8 @@
 
 <script>
 import Vue from 'vue'
-import BreadCrumb from './BreadCrumb.vue'
 
+import BreadCrumb from './BreadCrumb.vue'
 export default {
     name: "Board",
     components: {
@@ -23,7 +23,7 @@ export default {
     },
     data () { 
         return {
-            loading:0,
+            loading:1,
             board_categories:[],
         }
     },
@@ -40,7 +40,6 @@ export default {
     },
     methods: {
         load() {
-            this.loading=1;
             axios
                 .get('/api/board_categories.json',{
                     headers: {

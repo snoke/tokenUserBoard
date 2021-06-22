@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface as Encoder;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as PasswordEncoder;
+use App\Entity\User;
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
@@ -31,4 +32,5 @@ class AppController extends AbstractController
         $data = $jwtEncoder->decode(substr($request->headers->get('Authorization'),7));
         return $this->json($data);
     }
+
 }

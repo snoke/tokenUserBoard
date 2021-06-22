@@ -1,7 +1,11 @@
 <template>
       <form v-on:submit="submit" id="postForm">
-        <input type="text" name="message" />
-        <input type="submit" />
+          <div class="row">
+        <textarea name="message" placeholder="Nachricht" />
+            </div>
+          <div class="row">
+        <input type="submit"  class="btn btn-primary" value="Nachricht schreiben"/>
+            </div>
     </form>
 
 </template>

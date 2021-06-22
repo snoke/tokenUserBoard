@@ -9,7 +9,7 @@
         </div>
         <div  v-if="topic" class="breadcrumb_seperator"> > </div>
         <div  v-if="topic" class="breadcrumb_element">
-            <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}">{{topic.name}}</router-link>
+            <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}" >{{topic.name}}</router-link>
         </div>
     </div> 
 </template>
@@ -25,6 +25,9 @@ export default {
     props: {
         category: {},
         topic: {},
+    },
+    mounted() {
+        
     },
     methods: {
     },
