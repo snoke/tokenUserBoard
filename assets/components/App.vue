@@ -1,19 +1,20 @@
 <template>
   <div class="h-100">
-
-          <LoginOrRegister v-if="unauthenticated"/>
+        <router-view>
+          <Auth v-if="unauthenticated"/>
           <Board v-if="authenticated" />
+        </router-view>
   </div> 
 </template>
 
 <script>
 import Vue from 'vue'
-import LoginOrRegister from './LoginOrRegister';
+import Auth from './Auth';
 import Board from './Board';
 export default {
     name: "App",
     components: {
-        LoginOrRegister,
+        Auth,
         Board
     },
     data () { 
@@ -65,6 +66,12 @@ export default {
         setAuthenticated(val=true) {
             this.authenticated=val;
             this.unauthenticated=!val;
+            console.log(val);
+            if (val) {
+                this.$router.push({ name: 'Board'})
+            } else {
+                this.$router.push({ name: 'Auth'})
+            }
         },
         logout() {
             Vue.$cookies.remove("User");

@@ -12,6 +12,27 @@ import './styles/app.css';
 import './bootstrap';
 
 import Vue from 'vue';
+import VueRouter from 'vue-router'
+import Auth from './components/Auth.vue'
+import Board from './components/Board'
+Vue.use(VueRouter)
+const router = new VueRouter({  
+    mode:'history',
+    routes: [
+        { 
+                name: "Auth",
+                path: '/auth', 
+                component:  Auth,
+                props: true,
+        },
+        { 
+                name: "Board",
+                path: '/board', 
+                component:  Board,
+                props: true,
+        },
+    ]
+});
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -30,5 +51,6 @@ import App from './components/App';
 
 new Vue({
     el: '#app',
-    render: h => h(App)
+    render: h => h(App),
+    router: router,
 });

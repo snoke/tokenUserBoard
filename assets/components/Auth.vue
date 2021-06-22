@@ -44,7 +44,7 @@
 import Login from './Login';
 import Register from './Register';
 export default {
-    name: "LoginOrRegister",
+    name: "Auth",
     components: {
         Login,Register
     },

@@ -11,7 +11,8 @@ use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface as Encoder;
 
 class AppController extends AbstractController
 {
-    #[Route('/app', name: 'app_index')]
+    #[Route('/', name: 'app_index')]
+    #[Route('/{route}', name: 'app_route')]
     public function index(): Response
     {
         return $this->render('app/index.html.twig', [

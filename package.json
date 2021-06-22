@@ -24,6 +24,7 @@
         "vue-card-carousel": "^1.0.0",
         "vue-cookies": "^1.7.4",
         "vue-loader": "^15.9.7",
+        "vue-router": "^3.5.2",
         "vue-template-compiler": "^2.6.14"
     }
 }
