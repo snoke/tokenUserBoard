@@ -6,7 +6,7 @@
         <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
                 <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}"  class="menu-item">
                     <div class="row">
-                        <div class="col d-flex justify-content-center ">
+                        <div class="col d-flex justify-content-start ">
                             {{topic.name}}
                         </div>
                         <div  v-if="$root.user.roles.includes('ROLE_MODERATOR')"  class="col d-flex justify-content-center">

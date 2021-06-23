@@ -17,8 +17,8 @@
           <template #button-content>
             <em>{{$root.user.username}}</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#" @click="logout()">Sign Out</b-dropdown-item>
+          <!--<b-dropdown-item href="#">Profile</b-dropdown-item>-->
+          <b-dropdown-item href="#" @click="logout()">Ausloggen</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>

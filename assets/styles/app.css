@@ -10,21 +10,23 @@ body,html {
 .breadcrumb_element,.breadcrumb_seperator {
     float:left
 }
+/*
 ::-webkit-input-placeholder {
     text-align: center;
  }
  
- :-moz-placeholder { /* Firefox 18- */
+ :-moz-placeholder { 
     text-align: center;  
  }
  
- ::-moz-placeholder {  /* Firefox 19+ */
+ ::-moz-placeholder { 
     text-align: center;  
  }
  
  :-ms-input-placeholder {  
     text-align: center; 
  }
+ */
  .navbar-brand>a:Hover {
      text-decoration: none;
      color:lightgray;

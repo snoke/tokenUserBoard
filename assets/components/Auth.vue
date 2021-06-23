@@ -1,6 +1,7 @@
 <template>
+<!--
     <b-carousel
-      id="carousel-1"
+      id="carousel-auth"
       v-model="slide"
       :interval="0"
       controls
@@ -11,19 +12,21 @@
       class="main_carousel h-100"
     >
 
-      <!-- -->
       <b-carousel-slide>
         <template #img>
             <div class="main_carousel_slide_container d-flex justify-content-center">
                 <div class="jumbotron">
                     <div class="card">
-                        <div class="card-body"><Login /></div>
+                        <div class="card-body">
+                            -->
+                            <Login />
+                             <!--
+                            </div>
                     </div>
                 </div>
             </div>
         </template>
       </b-carousel-slide>
-      <!-- -->
       <b-carousel-slide>
         <template #img>
             <div class="main_carousel_slide_container d-flex justify-content-center">
@@ -37,6 +40,7 @@
       </b-carousel-slide>
 
     </b-carousel>
+                            -->
 </template>
 
 

@@ -3,11 +3,11 @@
     <div class="p-4 card list-menu-item" >
       <form v-on:submit="submit" id="categoryForm">
           <div class="row pb-3">
-              <h6 class="card-subtitle text-muted mb-2">Kategorie anlegen</h6>
+              <h5 class="card-subtitle text-muted mb-2">Kategorie anlegen</h5>
              
             </div>
           <div class="row pb-1">
-            <textarea name="name" placeholder="name" />
+            <textarea name="name"  class="form-control" placeholder="name" />
             </div>
           <div class="row pb-1">
         <input type="submit"  class="btn btn-primary" value="Kategorie anlegen" />

@@ -5,7 +5,7 @@
     <ul class="list-group  ">
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
                 <div class="row">
-                    <div class="col d-flex justify-content-center ">
+                    <div class="col d-flex justify-content-start ">
                         
 
   <b-card :title=board_topic.name :sub-title="'von ' + users[post.author].username" v-if="index==0" class="w-100">

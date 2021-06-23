@@ -3,13 +3,13 @@
     <div class="p-4 card list-menu-item" >
       <form v-on:submit="submit" id="topicForm">
           <div class="row pb-3">
-              <h6 class="card-subtitle text-muted mb-2">Thema verfassen</h6>
+              <h5 class="card-subtitle text-muted mb-2">Thema verfassen</h5>
             </div>
           <div class="row pb-1">
-            <input type="text" name="name"  placeholder="Thema" />
+            <input type="text" class="form-control" name="name"  placeholder="Thema" />
             </div>
           <div class="row pb-1">
-        <textarea name="message"  placeholder="Nachricht" />
+        <textarea name="message" class="form-control" placeholder="Nachricht" />
             </div>
           <div class="row pb-1">
         <input type="submit" class="btn btn-primary" value="Thema erstellen"  />
