@@ -38,6 +38,9 @@ body,html {
  .menu-item,.breadcrumb_element>a {
      text-decoration: none;
  }
+ .breadcrumb {
+     background-color:#eee;
+ }
  .list-menu-item:hover {
      background-color:#fafafa;
  }
