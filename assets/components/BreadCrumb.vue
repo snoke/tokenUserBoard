@@ -1,15 +1,18 @@
 <template>
     <div class="breadcrumb mb-0">
         <div class="breadcrumb_element p-3">
-            <router-link class="" :to="{ name: 'Board'}">Board</router-link>
+            <div v-if="!category">Board</div>
+            <router-link  v-if="category" class="" :to="{ name: 'Board'}">Board</router-link>
         </div>
         <div v-if="category" class="breadcrumb_seperator  pt-3"> > </div>
         <div v-if="category" class="breadcrumb_element p-3">
-            <router-link :to="{ name: 'BoardCategory', params: { categoryId: category.id}}">{{category.name}}</router-link>
+            <div v-if="!topic">{{category.name}}</div>
+            <router-link  v-if="topic" :to="{ name: 'BoardCategory', params: { categoryId: category.id}}">{{category.name}}</router-link>
         </div>
         <div  v-if="topic" class="breadcrumb_seperator  pt-3"> > </div>
         <div  v-if="topic" class="breadcrumb_element p-3">
-            <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}" >{{topic.name}}</router-link>
+            <div >{{topic.name}}</div>
+            <!--<router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}" >{{topic.name}}</router-link>-->
         </div>
     </div> 
 </template>
