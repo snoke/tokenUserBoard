@@ -17,13 +17,18 @@ export default {
     name: "Login",
     components: {
     },
+    mounted() {
+        this.submit(null);
+    },
     methods: {
         setToken(token) {
             Vue.$cookies.set('Bearer',token);
             this.$root.$emit('userAuthenticated', 'userAuthenticated')
         },
         submit(e) {
-            e.preventDefault();
+            if (e!=null) {
+                e.preventDefault();
+            }
             var form = document.getElementById('loginForm');
             var data = new FormData(form);
             var username = data.get("username");
