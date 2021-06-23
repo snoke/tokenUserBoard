@@ -1,14 +1,14 @@
 <template>
-    <div class="breadcrumb">
-        <div class="breadcrumb_element">
-            <router-link :to="{ name: 'Board'}">Board</router-link>
+    <div class="breadcrumb mb-0">
+        <div class="breadcrumb_element p-3">
+            <router-link class="" :to="{ name: 'Board'}">Board</router-link>
         </div>
-        <div v-if="category" class="breadcrumb_seperator"> > </div>
-        <div v-if="category" class="breadcrumb_element">
+        <div v-if="category" class="breadcrumb_seperator  pt-3"> > </div>
+        <div v-if="category" class="breadcrumb_element p-3">
             <router-link :to="{ name: 'BoardCategory', params: { categoryId: category.id}}">{{category.name}}</router-link>
         </div>
-        <div  v-if="topic" class="breadcrumb_seperator"> > </div>
-        <div  v-if="topic" class="breadcrumb_element">
+        <div  v-if="topic" class="breadcrumb_seperator  pt-3"> > </div>
+        <div  v-if="topic" class="breadcrumb_element p-3">
             <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}" >{{topic.name}}</router-link>
         </div>
     </div> 

@@ -1,14 +1,30 @@
 <template>
 <div>
         <BreadCrumb :category=board_category />
-    <div v-if="this.loading == 1" class="spinner-border text-primary" role="status">
-        <span class="sr-only" ></span>
-    </div>
-    <ul class="list-group" v-if="this.loading == 0">
+    <ul class="list-group">
         <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item" @click="$root.$emit('update')">
-            <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}" >{{topic.name}}</router-link>
+                <div class="row">
+                    <div class="col d-flex justify-content-center ">
+                        <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}" >{{topic.name}}</router-link>
+                    </div>
+                    <div  v-if="$root.user.roles.includes('ROLE_MODERATOR')"  class="col d-flex justify-content-center">
+<div>
+  <b-dropdown text="Aktion" class="m-md-2" variant="primary">
+    <b-dropdown-item  class=" ">Bearbeiten</b-dropdown-item>
+    <b-dropdown-item class="">Verschieben</b-dropdown-item>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item>
+  </b-dropdown>
+</div>
+                    </div>
+                </div>
          </li>
     </ul>
+        <div  v-if="this.loading == 1" class=" d-flex justify-content-center w-100 p-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only" ></span>
+            </div>
+        </div>
     <TopicForm />
 </div>
 </template>
@@ -41,7 +57,7 @@ export default {
     },
     methods: {
         setReady(i) {
-            if (i==this.board_category.boardTopics.length-1) {
+            if (i==this.board_category.boardTopics.length) {
                 this.loading=0;
             }
         },
@@ -55,21 +71,25 @@ export default {
                 })
             .then(response => (this.board_category = response.data,this.loadTopics())).catch(error=>(this.load()));
         },
-        loadTopic(item,i) {
+        loadTopic(items,i) {
+            if (i==items.length) {
+                this.setReady(i)
+                return;
+            }
             axios
-                .get(item,{
+                .get(items[i]+'.json',{
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (this.board_topics.push(response.data),this.setReady(i))).catch(error=>(this.loadTopic(item,i)));
+            .then(response => (this.board_topics[i]=response.data,this.loadTopic(items,i+1))).catch(error=>(this.loadTopic(item,i)));
         },
         loadTopics() {
             if (this.board_category.boardTopics.length==0) {
                 this.loading=0
             }
-            this.board_category.boardTopics.forEach((item,i) => ( this.loadTopic(item,i) ))
+            this.loadTopic(this.board_category.boardTopics,0 )
         },
     },
 };

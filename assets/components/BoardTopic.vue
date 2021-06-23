@@ -1,13 +1,30 @@
 <template>
 <div>
         <BreadCrumb :category=board_category :topic=board_topic />
-        <div v-if="this.loading == 1" class="spinner-border text-primary" role="status">
-            <span class="sr-only" ></span>
-        </div>
-    <ul class="list-group" v-if="this.loading == 0">
-        <li v-bind:key="post.id" v-for="post in board_posts"  class="list-group-item">{{post.message}}
+    <ul class="list-group">
+        <li v-bind:key="post.id" v-for="post in board_posts"  class="list-group-item ">
+                <div class="row">
+                    <div class="col d-flex justify-content-center ">
+                        <div>{{post.message}}</div>
+                    </div>
+                    <div  v-if="$root.user.roles.includes('ROLE_MODERATOR')"  class="col d-flex justify-content-center">
+<div>
+  <b-dropdown text="Aktion" class="m-md-2" variant="primary">
+    <b-dropdown-item  class=" ">Bearbeiten</b-dropdown-item>
+    <b-dropdown-item class="">Verschieben</b-dropdown-item>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item>
+  </b-dropdown>
+</div>
+                    </div>
+                </div>
          </li>
     </ul>
+        <div  v-if="this.loading == 1" class=" d-flex justify-content-center w-100 p-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only" ></span>
+            </div>
+        </div>
     <PostForm />
 </div>
 </template>
@@ -29,6 +46,7 @@ export default {
             board_category:null,
             board_topic:null,
             board_posts:[],
+            users:[],
         }
     },
     created () {
@@ -38,11 +56,10 @@ export default {
 
     mounted() {
         this.load()
-        
     },
     methods: {
         setReady(i) {
-            if (i==this.board_topic.boardPosts.length-1) {
+            if (i==this.board_topic.boardPosts.length) {
                 this.loading=0;
             }
         },
@@ -66,22 +83,25 @@ export default {
                 })
             .then(response => (this.board_topic = response.data,this.loadPosts())).catch(error=>(this.loadTopic()));
         },
-        loadPost(item,i) {
+        loadPost(items,i) {
+            if (i==items.length) {
+                this.setReady(i)
+                return;
+            }
             axios
-                .get(item,{
+                .get(items[i] + '.json',{
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
-                }).then(response => (this.board_posts.push(response.data),this.setReady(i))).catch(error=>(this.loadPost(item,i)));
+                })
+            .then(response => (this.board_posts[i]=response.data,this.loadPost(items,i+1))).catch(error=>(this.loadPost(item,i)));
         },
         loadPosts() {
             if (this.board_topic.boardPosts.length==0) {
                 this.loading=0
             }
-            this.board_topic.boardPosts.forEach((item,i) => ( 
-                this.loadPost(item,i)
-           ));
+                this.loadPost(this.board_topic.boardPosts,0)
         },
     },
 };
