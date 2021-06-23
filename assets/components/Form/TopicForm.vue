@@ -1,16 +1,23 @@
 <template>
+<div class="jumbotron p-3">
+    <div class="p-4 card list-menu-item" >
       <form v-on:submit="submit" id="topicForm">
-          <div class="row">
-            <input type="text" name="name"  placeholder="Titel" />
+          <div class="row pb-3">
+              <h6 class="card-subtitle text-muted mb-2">Thema verfassen</h6>
             </div>
-          <div class="row">
+          <div class="row pb-1">
+            <input type="text" name="name"  placeholder="Thema" />
+            </div>
+          <div class="row pb-1">
         <textarea name="message"  placeholder="Nachricht" />
             </div>
-          <div class="row">
-        <input type="submit" class="btn btn-primary" value="Topic erstellen"  />
+          <div class="row pb-1">
+        <input type="submit" class="btn btn-primary" value="Thema erstellen"  />
             </div>
     </form>
+            </div>
 
+</div>
 </template>
 
 
@@ -47,7 +54,7 @@ export default {
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (alert('done'))).catch(error=>(this.postPost(newTopic)));
+            .then(response => (this.$router.push({ name: 'BoardTopic', params: { categoryId: this.$route.params.categoryId,topicId: newTopic.id, } }))).catch(error=>(this.postPost(newTopic)));
 
         },
         postTopic() {

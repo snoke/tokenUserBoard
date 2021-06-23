@@ -2,8 +2,8 @@
   <div>
       <h1 class="text-dark">Login</h1>
       <form v-on:submit="submit" id="loginForm" >
-        <input name="username"  type="text" placeholder="username" />
-        <input name="password"  type="password" placeholder="password"/>
+        <input name="username"  type="text" placeholder="username" value="test" />
+        <input name="password"  type="password" placeholder="password" value="test" />
         <input type="submit" />
       </form>
   </div> 

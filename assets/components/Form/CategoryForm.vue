@@ -1,13 +1,20 @@
 <template>
+<div class="jumbotron p-3">
+    <div class="p-4 card list-menu-item" >
       <form v-on:submit="submit" id="categoryForm">
-          <div class="row">
-        <textarea name="name" placeholder="name" />
+          <div class="row pb-3">
+              <h6 class="card-subtitle text-muted mb-2">Kategorie anlegen</h6>
+             
             </div>
-          <div class="row">
+          <div class="row pb-1">
+            <textarea name="name" placeholder="name" />
+            </div>
+          <div class="row pb-1">
         <input type="submit"  class="btn btn-primary" value="Kategorie anlegen" />
             </div>
     </form>
-
+</div>
+            </div>
 </template>
 
 
@@ -42,7 +49,7 @@ export default {
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (alert('done'))).catch(error=>(this.submit(e)));
+            .then(response => (this.$router.push({ name: 'Board' }))).catch(error=>(this.submit(e)));
         }
     }
 };

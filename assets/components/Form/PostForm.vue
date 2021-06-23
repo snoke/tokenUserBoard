@@ -1,12 +1,20 @@
 <template>
+<div class="jumbotron p-3">
+    <div class="p-4 card list-menu-item" >
       <form v-on:submit="submit" id="postForm">
-          <div class="row">
+          <div class="row pb-3">
+              <h6 class="card-subtitle text-muted mb-2">Antwort schreiben</h6>
+             
+            </div>
+          <div class="row pb-1">
         <textarea name="message" placeholder="Nachricht" />
             </div>
-          <div class="row">
-        <input type="submit"  class="btn btn-primary" value="Nachricht schreiben"/>
+          <div class="row pb-1">
+        <input type="submit"  class="btn btn-primary" value="Nachricht schreiben" />
             </div>
     </form>
+            </div>
+            </div>
 
 </template>
 
@@ -44,7 +52,7 @@ export default {
                         "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
                     }
                 })
-            .then(response => (alert('done'))).catch(error=>(this.submit(e)));
+            .then(response => (this.$router.go() ));
         }
     }
 };

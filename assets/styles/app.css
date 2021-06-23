@@ -10,3 +10,32 @@ body,html {
 .breadcrumb_element,.breadcrumb_seperator {
     float:left
 }
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+ }
+ 
+ :-ms-input-placeholder {  
+    text-align: center; 
+ }
+ .navbar-brand>a:Hover {
+     text-decoration: none;
+     color:lightgray;
+ }
+ .navbar-brand>a {
+     text-decoration: none;
+     color:lightgray;
+ }
+ .menu-item,.breadcrumb_element>a {
+     text-decoration: none;
+ }
+ .list-menu-item:hover {
+     background-color:#fafafa;
+ }
