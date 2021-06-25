@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method BoardPostMemento[]    findAll()
  * @method BoardPostMemento[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BoardPostMementoMementoRepository extends ServiceEntityRepository
+class BoardPostMementoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

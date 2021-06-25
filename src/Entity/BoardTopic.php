@@ -34,7 +34,7 @@ class BoardTopic
     private $BoardCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardPost::class, mappedBy="BoardTopic", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=BoardPost::class, mappedBy="BoardTopic", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $boardPosts;
 

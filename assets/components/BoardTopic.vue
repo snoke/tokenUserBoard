@@ -10,15 +10,21 @@
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
                 <div class="row">
                     <div class="col-lg d-flex justify-content-start ">
-                        
-
   <b-card :title=board_topic.name  v-if="post.deleted==true" class="w-100">
     <b-card-text>
         Diese Nachricht wurde entfernt.
     </b-card-text>
   </b-card>
   
-  <b-card :title=board_topic.name  v-if="post.deleted==false" class="w-100">
+  <b-card :title=board_topic.name  v-if="post.deleted==false && index==0" class="w-100 ">
+    <b-card-sub-title>
+       von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
+    </b-card-sub-title>
+    <b-card-text>
+{{post.message}}
+    </b-card-text>
+  </b-card>
+  <b-card   v-if="post.deleted==false && index!=0" class="w-100 comment">
     <b-card-sub-title>
        von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
     </b-card-sub-title>
@@ -96,7 +102,7 @@ export default {
                     {
                         headers
                     })
-            .then(response => (alert("removed"))).catch(error=>(this.remove()));
+            .then(response => (this.$router.go(0))).catch(error=>(this.remove(postId)));
         },
         setReady(i) {
             if (i>=this.board_topic.boardPosts.length-1) {

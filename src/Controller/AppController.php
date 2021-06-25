@@ -16,6 +16,8 @@ class AppController extends AbstractController
     #[Route('/Board', name: 'app_board')]
     #[Route('/Board/{categoryId}', name: 'app_board_category')]
     #[Route('/Board/{categoryId}/{topicId}', name: 'app_board_category_topic')]
+    #[Route('/Board/{categoryId}/{topicId}/edit', name: 'app_board_category_topic_edit')]
+    #[Route('/Board/{categoryId}/{topicId}/{postId}/edit', name: 'app_board_category_topic_post_edit')]
     #[Route('/User/{username}', name: 'app_user_profile')]
     #[Route('/Auth/Login', name: 'app_auth_login')]
     #[Route('/Auth/Logout', name: 'app_auth_logut')]

@@ -81,7 +81,7 @@ export default {
                     {
                         headers
                     })
-            .then(response => (alert("removed"))).catch(error=>(this.remove()));
+            .then(response => (this.$router.go(0))).catch(error=>(this.remove(topicId)));
         },
         setBreadCrumb() {
             this.$root.$emit('addBreadCrumb', {

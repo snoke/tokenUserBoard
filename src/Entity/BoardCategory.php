@@ -28,7 +28,7 @@ class BoardCategory
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardTopic::class, mappedBy="BoardCategory", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=BoardTopic::class, mappedBy="BoardCategory", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $boardTopics;
 

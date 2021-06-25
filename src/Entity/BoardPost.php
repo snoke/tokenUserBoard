@@ -43,7 +43,7 @@ class BoardPost
     private $created;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardPostMemento::class, mappedBy="boardPost", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=BoardPostMemento::class, mappedBy="boardPost", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $Mementos;
 

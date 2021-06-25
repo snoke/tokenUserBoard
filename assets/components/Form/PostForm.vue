@@ -78,7 +78,7 @@ export default {
                     {
                         headers
                     })
-                .then(response => (this.$router.push({ name: 'BoardTopic',params:{categoryId:this.$route.params.categoryId,topicId:this.$route.params.topicId}}) ));
+                .then(response => (this.$router.go(0) ));
         },
         createMemento() {
             var headers={'Content-Type': 'application/json',};
@@ -105,7 +105,8 @@ export default {
             var message = data.get("message");
             
             if (this.$route.params.postId) {
-                this.createMemento();
+                //this.createMemento();
+                this.updateOldPost();
             } else {
             var headers={'Content-Type': 'application/json',};
             if (Vue.$cookies.get("Bearer")!=null) {
@@ -122,7 +123,7 @@ export default {
                     {
                         headers
                     })
-                .then(response => (this.$router.push({ name: 'BoardTopic',params:{categoryId:this.$route.params.categoryId,topicId:this.$route.params.topicId}}) ));
+                .then(response => (this.$router.go(0)));
 
             }
         }

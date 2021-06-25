@@ -80,7 +80,7 @@ export default {
                 {
                     headers
                 })
-            .then(response => (this.$router.push({ name: 'BoardTopic', params: { categoryId: this.$route.params.categoryId,topicId: newTopic.id, } }))).catch(error=>(this.postPost(newTopic)));
+            .then(response => (this.$router.go(0))).catch(error=>(this.postPost(newTopic)));
 
         },
         postTopic() {

@@ -50,7 +50,7 @@ export default {
                 {
                     headers
                 })
-            .then(response => (this.$router.push({ name: 'Board' }))).catch(error=>(this.submit(e)));
+            .then(response => (this.$router.go(0))).catch(error=>(this.submit(e)));
         }
     }
 };
