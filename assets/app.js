@@ -14,17 +14,17 @@ import './bootstrap';
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 import App from './components/App.vue'
-import Auth from './components/Auth.vue'
-import Login from './components/Login.vue'
-import Logout from './components/Logout.vue'
-import Register from './components/Register.vue'
-import Board from './components/Board'
-import BoardCategory from './components/BoardCategory'
-import BoardTopic from './components/BoardTopic'
-import PostForm from './components/Form/PostForm'
-import TopicForm from './components/Form/TopicForm'
-import UserProfile from './components/UserProfile'
-import User from './components/User'
+import Auth from './components/Auth/Auth.vue'
+import Login from './components/Auth/Login.vue'
+import Logout from './components/Auth/Logout.vue'
+import Register from './components/Auth/Register.vue'
+import Board from './components/Board/Board'
+import BoardCategory from './components/Board/BoardCategory'
+import BoardTopic from './components/Board/BoardTopic'
+import PostForm from './components/Board/Form/PostForm'
+import TopicForm from './components/Board/Form/TopicForm'
+import UserProfile from './components/User/UserProfile'
+import User from './components/User/User'
 Vue.use(VueRouter)
 const router = new VueRouter({  
     mode:'history',

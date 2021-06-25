@@ -62,9 +62,9 @@
 <script>
 import Vue from 'vue'
 import PostForm from './Form/PostForm.vue'
-import Navbar from './Navbar.vue'
-import BreadCrumb from './BreadCrumb.vue'
-import UserProfile from './UserProfile.vue'
+import Navbar from './../Navbar.vue'
+import BreadCrumb from './../BreadCrumb.vue'
+import UserProfile from './../User/UserProfile.vue'
 
 export default {
     name: "BoardTopic",
@@ -160,7 +160,6 @@ export default {
                 headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
             }
             if (i==items.length) {
-                this.setReady(i)
                 return;
             }
             axios

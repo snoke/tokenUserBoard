@@ -7,8 +7,8 @@
 
 <script>
 
-import Navbar from './Navbar.vue'
-import BreadCrumb from './BreadCrumb.vue'
+import Navbar from './../Navbar.vue'
+import BreadCrumb from './../BreadCrumb.vue'
 export default {
     name: "UserProfile",
     components: {

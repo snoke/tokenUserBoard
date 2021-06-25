@@ -11,7 +11,7 @@
 <script>
 import Vue from 'vue'
 import Footer from './Footer';
-import Board from './Board';
+import Board from './Board/Board';
 import BreadCrumb from './BreadCrumb.vue'
 import Navbar from './Navbar.vue'
 export default {

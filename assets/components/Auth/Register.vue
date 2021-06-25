@@ -4,7 +4,7 @@
         <BreadCrumb />
       <h1 class="text-dark">Register</h1>
       <form v-on:submit="submit" id="RegisterForm" >
-        <input name="email" type="text"  placeholder="email" />
+        <!--<input name="email" type="text"  placeholder="email" />-->
         <input name="username" type="text"  placeholder="username" />
         <input name="password"  type="password"  placeholder="password"/>
         <input type="submit"/>
@@ -23,20 +23,27 @@ export default {
     },
 
     methods: {
+        handleError(error) {
+            alert(error.response);
+        },
         submit(e) {
             e.preventDefault();
             var form = document.getElementById('RegisterForm');
             var data = new FormData(form);
-            var email = data.get("email");
             var username = data.get("username");
             var password = data.get("password");
+            //var email = data.get("email");
             axios
-                .post('/api/users',{email,username,password},{
+                .post('/api/signup',{
+                    username,
+                    password,
+                    //email
+                    },{
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
-            .then(response => (this.setToken(response.data.token)))
+            .then(response => (this.$router.push({ name: 'Login'}))).catch(error => (this.handleError(error)))
         }
     },
 };

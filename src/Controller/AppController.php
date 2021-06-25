@@ -10,6 +10,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface as Encoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as PasswordEncoder;
 use App\Entity\User;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
@@ -26,6 +28,32 @@ class AppController extends AbstractController
     {
         return $this->render('app/index.html.twig', [
         ]);
+    }
+
+    /**
+     * this method extracts encodes the password
+     * 
+     * @Route("api/signup", methods={"POST","PUT"})
+     */
+    public function signup(UserRepository $users, PasswordEncoder $encoder,Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        if ($users->findOneBy(['username' => $data["username"]])) {
+            $response = new JsonResponse();
+            $response->setStatusCode(403);
+            return $response;
+        }
+        $user = new User();
+        $user->setUsername($data["username"]);
+        $user->setRoles(["ROLE_USER"]);
+        $user->setPassword($encoder->encodePassword($user, $data["password"]));
+        $user->setApi("/api/users/" . $data["username"]);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->json(['response' => true]);
     }
 
     /**

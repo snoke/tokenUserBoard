@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import Navbar from './Navbar.vue'
+import Navbar from './../Navbar.vue'
 import Vue from 'vue'
-import BreadCrumb from './BreadCrumb.vue'
+import BreadCrumb from './../BreadCrumb.vue'
 import TopicForm from './Form/TopicForm.vue'
 
 

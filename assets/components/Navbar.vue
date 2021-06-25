@@ -32,9 +32,9 @@
 
 
 <script>
-import Login from './Login';
-import Register from './Register';
-import UserProfile from './UserProfile';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
+import UserProfile from './User/UserProfile';
 export default {
     name: "Navbar",
     components: {

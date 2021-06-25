@@ -40,9 +40,9 @@
 <script>
 import Vue from 'vue'
 
-import Navbar from './Navbar.vue'
+import Navbar from './../Navbar.vue'
 import BoardCategory from './BoardCategory.vue'
-import BreadCrumb from './BreadCrumb.vue'
+import BreadCrumb from './../BreadCrumb.vue'
 import CategoryForm from './Form/CategoryForm.vue'
 export default {
     name: "Board",
