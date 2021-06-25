@@ -7,7 +7,7 @@
     <div  v-if="$route.name=='BoardTopic'">
         <br />
     <div class="breadcrumb_seperator" ></div>
-    <ul class="list-group  ">
+    <ul class="list-group  w-100">
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
                 <div class="row">
                     <div class="col-lg d-flex justify-content-start ">
