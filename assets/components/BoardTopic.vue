@@ -1,7 +1,8 @@
 <template>
 <div><div class="breadcrumb_divider">></div> 
     <div class="breadcrumb_element" >
-        <router-link :to="{ name: 'BoardTopic',params:{topidId:board_topic.id,categoryId:board_category.id}}">{{board_topic.name}}</router-link>
+        <router-link v-if="$route.name!='BoardTopic'" :to="{ name: 'BoardTopic',params:{topidId:board_topic.id,categoryId:board_category.id}}">{{board_topic.name}}</router-link>
+        <a v-if="$route.name=='BoardTopic'" >{{board_topic.name}}</a>
         </div>
     <div  v-if="$route.name=='BoardTopic'">
         <br />
@@ -159,6 +160,7 @@ export default {
                 headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
             }
             if (i==items.length) {
+                this.setReady(i)
                 return;
             }
             axios

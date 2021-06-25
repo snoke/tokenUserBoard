@@ -1,7 +1,8 @@
 <template>
     <div>
     <div class="breadcrumb_element" >
-        <router-link :to="{ name: 'Board'}">Board</router-link>
+        <router-link  v-if="$route.name!='Board'" :to="{ name: 'Board'}">tokenUserBoard</router-link>
+        <a  v-if="$route.name=='Board'" >tokenUserBoard</a>
     </div>
     <div  v-if="$route.name=='Board'">
         <br /><div class="breadcrumb_seperator"></div> 

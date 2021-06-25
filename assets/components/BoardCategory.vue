@@ -2,7 +2,8 @@
 <div>
 <div class="breadcrumb_divider">></div> 
     <div class="breadcrumb_element" >
-        <router-link :to="{ name: 'BoardCategory',params:{categoryId:board_category.id}}">{{board_category.name}}</router-link>
+        <router-link :to="{ name: 'BoardCategory',params:{categoryId:board_category.id}}"  v-if="$route.name!='BoardCategory'">{{board_category.name}}</router-link>
+        <a  v-if="$route.name=='BoardCategory'">{{board_category.name}}</a>
         </div>
     <div  v-if="$route.name=='BoardCategory'">
         <br />
