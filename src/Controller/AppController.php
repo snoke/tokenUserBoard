@@ -13,9 +13,13 @@ use App\Entity\User;
 class AppController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    #[Route('/board', name: 'app_board')]
-    #[Route('/board/{categoryId}', name: 'app_board_category')]
-    #[Route('/board/{categoryId}/{topicId}', name: 'app_board_category_topic')]
+    #[Route('/Board', name: 'app_board')]
+    #[Route('/Board/{categoryId}', name: 'app_board_category')]
+    #[Route('/Board/{categoryId}/{topicId}', name: 'app_board_category_topic')]
+    #[Route('/User/{username}', name: 'app_user_profile')]
+    #[Route('/Auth/Login', name: 'app_auth_login')]
+    #[Route('/Auth/Logout', name: 'app_auth_logut')]
+    #[Route('/Auth/Register', name: 'app_auth_register')]
     public function index(): Response
     {
         return $this->render('app/index.html.twig', [

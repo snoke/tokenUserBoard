@@ -1,34 +1,40 @@
 <template>
-<div>
-        <Navbar />
-        <BreadCrumb :category=board_category :topic=board_topic />
+<div><div class="breadcrumb_divider">></div> 
+    <div class="breadcrumb_element" >
+        <router-link :to="{ name: 'BoardTopic',params:{topidId:board_topic.id,categoryId:board_category.id}}">{{board_topic.name}}</router-link>
+        </div>
+    <div  v-if="$route.name=='BoardTopic'">
+        <br />
+    <div class="breadcrumb_seperator" ></div>
     <ul class="list-group  ">
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
                 <div class="row">
-                    <div class="col d-flex justify-content-start ">
+                    <div class="col-lg d-flex justify-content-start ">
                         
 
-  <b-card :title=board_topic.name :sub-title="'von ' + users[post.author].username" v-if="index==0" class="w-100">
+  <b-card :title=board_topic.name  v-if="post.deleted==true" class="w-100">
+    <b-card-text>
+        Diese Nachricht wurde entfernt.
+    </b-card-text>
+  </b-card>
+  
+  <b-card :title=board_topic.name  v-if="post.deleted==false" class="w-100">
+    <b-card-sub-title>
+       von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
+    </b-card-sub-title>
     <b-card-text>
 {{post.message}}
     </b-card-text>
-
   </b-card>
-  <b-card  :sub-title="'von ' + users[post.author].username" v-if="index>0"  class="w-100 comment">
-    <b-card-text>
-{{post.message}}
-    </b-card-text>
-
-  </b-card>
+  
 
                     </div>
-                    <div  v-if="$root.user.roles.includes('ROLE_MODERATOR')"  class="col d-flex justify-content-center">
+                    <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') || post.author==$root.user.api"  class="col-sm-1 d-flex justify-content-center">
 <div>
   <b-dropdown text="Aktion" class="m-md-2" variant="primary">
-    <b-dropdown-item  class=" ">Bearbeiten</b-dropdown-item>
-    <b-dropdown-item class="">Verschieben</b-dropdown-item>
+    <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardPostEdit', params: { categoryId:board_category.id,topicId:board_topic.id,postId:post.id }}">Bearbeiten</router-link></b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item>
+    <a href="#" v-on:click="remove(post.id)" v-if="$root.user.roles.includes('ROLE_MODERATOR')"><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
   </b-dropdown>
 </div>
                     </div>
@@ -40,22 +46,26 @@
                 <span class="sr-only" ></span>
             </div>
         </div>
-    <PostForm />
+        <PostForm v-if="$root.user.roles.includes('ROLE_USER')" />
+                    </div>
+        <router-view />
 </div>
 </template>
 
 <script>
-import Navbar from './Navbar.vue'
 import Vue from 'vue'
-import BreadCrumb from './BreadCrumb.vue'
 import PostForm from './Form/PostForm.vue'
+import Navbar from './Navbar.vue'
+import BreadCrumb from './BreadCrumb.vue'
+import UserProfile from './UserProfile.vue'
 
 export default {
     name: "BoardTopic",
     components: {
         Navbar,
         BreadCrumb,
-        PostForm
+        PostForm,
+        UserProfile
     },
     data () { 
         return {
@@ -75,44 +85,57 @@ export default {
         this.load()
     },
     methods: {
+        remove(postId) {
+
+            var headers={'Content-Type': "application/merge-patch+json"};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
+            axios
+                .delete('/api/board_posts/'+postId+'.json',
+                    {
+                        headers
+                    })
+            .then(response => (alert("removed"))).catch(error=>(this.remove()));
+        },
         setReady(i) {
-            console.log("set ready")
-            console.log("i:" + i)
-            console.log("length:" + this.board_topic.boardPosts.length)
             if (i>=this.board_topic.boardPosts.length-1) {
                 this.loading=0;
                 return true
             }
         },
         load() {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
             axios
                 .get('/api/board_categories/'+this.$route.params.categoryId+'.json',{
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
-                    }
+                    headers
                 })
             .then(response => (this.board_category = response.data),this.loadTopic()).catch(error=>(this.load()));
         },
         loadTopic() {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
             axios
                 .get('/api/board_topics/'+this.$route.params.topicId+'.json',{
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
-                    }
+                    headers
                 })
             .then(response => (this.board_topic = response.data,this.loadPosts())).catch(error=>(this.loadTopic()));
         },
         loadAuthor(author,i,items) {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
             if (i==items.length) {
                 this.setReady(i)
                 return;
             }
             if (this.users[author]) {
-                console.log(author)
-                console.log("this.users")
-                console.log(this.users)
                 if (!this.setReady(i)) {
                     this.loadPost(items,i+1)
                 }
@@ -120,23 +143,21 @@ export default {
             }
             axios
                 .get(author + '.json',{
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
-                    }
+                    headers
                 })
             .then(response => (this.users[author]=response.data,this.setReady(i),this.loadPost(items,i+1))).catch(error=>(this.loadAuthor(author,i,items)));
         },
         loadPost(items,i) {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
             if (i==items.length) {
                 return;
             }
             axios
                 .get(items[i] + '.json',{
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
-                    }
+                    headers
                 })
             .then(response => (this.board_posts[i]=response.data,this.loadAuthor(response.data.author,i,items))).catch(error=>(this.loadPost(item,i)));
         },

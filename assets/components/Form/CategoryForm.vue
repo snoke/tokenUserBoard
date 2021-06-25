@@ -35,6 +35,10 @@ export default {
 
     methods: {
         submit(e) {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
             e.preventDefault();
             var data = new FormData(document.getElementById('categoryForm'));
             var name = data.get("name");
@@ -44,10 +48,7 @@ export default {
                     name
                 },
                 {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + Vue.$cookies.get("Bearer")
-                    }
+                    headers
                 })
             .then(response => (this.$router.push({ name: 'Board' }))).catch(error=>(this.submit(e)));
         }

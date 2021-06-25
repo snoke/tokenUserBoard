@@ -28,6 +28,7 @@ public function __construct(RequestStack $requestStack)
         $user = $this->getUser();
         $payload       = $event->getData();
         $payload['id'] = $user->getId();
+        $payload['api'] = $user->getApi();
 
         $event->setData($payload);
     }

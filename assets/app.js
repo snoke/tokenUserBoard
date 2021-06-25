@@ -13,37 +13,98 @@ import './bootstrap';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router'
+import App from './components/App.vue'
 import Auth from './components/Auth.vue'
+import Login from './components/Login.vue'
+import Logout from './components/Logout.vue'
+import Register from './components/Register.vue'
 import Board from './components/Board'
 import BoardCategory from './components/BoardCategory'
 import BoardTopic from './components/BoardTopic'
+import PostForm from './components/Form/PostForm'
+import TopicForm from './components/Form/TopicForm'
+import UserProfile from './components/UserProfile'
+import User from './components/User'
 Vue.use(VueRouter)
 const router = new VueRouter({  
     mode:'history',
     routes: [
         { 
-                name: "Auth",
-                path: '/auth', 
-                component:  Auth,
-                props: true,
+            name: "Board",
+            path: '/Board', 
+            component:  Board,
+            props: true,
+            children: [
+                { 
+                        name: "BoardCategory",
+                        path: '/Board/:categoryId', 
+                        component:  BoardCategory,
+                        props: true,
+                        children: [
+                            { 
+                                    name: "BoardTopic",
+                                    path: '/Board/:categoryId/:topicId', 
+                                    component:  BoardTopic,
+                                    props: true,
+                                    children:[
+                                        { 
+                                            name: "BoardTopicEdit",
+                                            path: '/Board/:categoryId/:topicId/edit', 
+                                            component:  TopicForm,
+                                            props: true,
+                                         },
+                                        
+                                        { 
+                                            name: "BoardPostEdit",
+                                            path: '/Board/:categoryId/:topicId/:postId/edit', 
+                                            component:  PostForm,
+                                            props: true,
+                                         },
+                                    ]
+                            },
+                        ]
+                },
+            ]
         },
         { 
-                name: "Board",
-                path: '/board', 
-                component:  Board,
-                props: true,
+            name: "Auth",
+            path: '/Auth', 
+            component:  Auth,
+            props: true,
+            children: [
+                { 
+                        name: "Register",
+                        path: '/Auth/Register', 
+                        component:  Register,
+                        props: true,
+                },
+                { 
+                        name: "Login",
+                        path: '/Auth/Login', 
+                        component:  Login,
+                        props: true,
+                },
+                { 
+                        name: "Logout",
+                        path: '/Auth/Logout', 
+                        component:  Logout,
+                        props: true,
+                },
+            ]
         },
         { 
-                name: "BoardCategory",
-                path: '/board/:categoryId', 
-                component:  BoardCategory,
-                props: true,
-        },
-        { 
-                name: "BoardTopic",
-                path: '/board/:categoryId/:topicId', 
-                component:  BoardTopic,
-                props: true,
+            name: "User",
+            path: '/User', 
+            component:  User,
+            props: true,
+            children: [
+                { 
+                        name: "UserProfile",
+                        path: '/User/:username', 
+                        component:  UserProfile,
+                        props: true,
+                },
+            ]
         },
     ]
 });
@@ -61,7 +122,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
-import App from './components/App';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -77,7 +137,7 @@ new Vue({
         unauthenticated:false,
         authenticated:false,
         token:null,
-        user: null
+        user: {username:'Anonymous',roles:['ROLE_GUEST']}
     },
     render: h => h(App),
     router: router,
@@ -85,11 +145,26 @@ new Vue({
         this.extractToken();
     },
     mounted() {
+        axios.interceptors.response.use(response => {
+                return response;
+             }, error => {
+               if (error.response.status === 401) {
+                this.logout();
+               }
+               return error;
+             });
         this.$on('userAuthenticated', () => {
             this.extractToken();
         })
     },
     methods: {
+            getNow() {
+                const today = new Date();
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                const dateTime = date +' '+ time;
+                return dateTime;
+            },
           extractToken() {
               this.token = Vue.$cookies.get("Bearer");
               if (this.token==null) {
@@ -110,17 +185,20 @@ new Vue({
           setAuthenticated(val=true) {
               this.authenticated=val;
               this.unauthenticated=!val;
+       
               if (val) {
-                  this.$router.push({ name: 'Board'})
-              } else {
-                  this.$router.push({ name: 'Auth'})
+                  //this.$router.push({ name: 'Board'})
+              }  
+              else {
+               //         this.$router.go()
+                  //this.$router.push({ name: 'Board'})
               }
           },
           logout() {
               Vue.$cookies.remove("User");
               Vue.$cookies.remove("Bearer");
               this.token = null;
-              this.user = null;
+              this.user= {username:'Anonymous',roles:['ROLE_GUEST']}
               this.setAuthenticated(false)
           }
       },

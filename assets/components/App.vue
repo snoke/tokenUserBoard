@@ -1,41 +1,36 @@
 <template>
+
   <div class="h-100">
+          <Navbar />
         <router-view>
-          <Auth v-if="this.$root.unauthenticated"/>
-          <Board v-if="this.$root.authenticated" />
         </router-view>
+        <Footer />
   </div> 
 </template>
 
 <script>
 import Vue from 'vue'
-import Auth from './Auth';
+import Footer from './Footer';
 import Board from './Board';
 import BreadCrumb from './BreadCrumb.vue'
+import Navbar from './Navbar.vue'
 export default {
     name: "App",
     components: {
-        Auth,
-        Board,
-        BreadCrumb
+        Navbar,
+        BreadCrumb,Footer
     },
     data () { 
         return {
-            slide: 0,
-            sliding: null
         }
     },
     computed: {
     },
 
+    mounted () {
+      this.$router.push({ name: 'Board'})
+    },
     methods: {
-        
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      },
     },
 };
 </script>

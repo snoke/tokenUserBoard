@@ -55,9 +55,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $boardPosts;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("read")
+     */
+    private $api;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BoardTopic::class, mappedBy="author")
+     */
+    private $boardTopics;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BoardCategory::class, mappedBy="author")
+     */
+    private $boardCategories;
+
     public function __construct()
     {
         $this->boardPosts = new ArrayCollection();
+        $this->boardTopics = new ArrayCollection();
+        $this->boardCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +190,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($boardPost->getAuthor() === $this) {
                 $boardPost->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getApi(): ?string
+    {
+        return $this->api;
+    }
+
+    public function setApi(?string $api): self
+    {
+        $this->api = $api;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardTopic[]
+     */
+    public function getBoardTopics(): Collection
+    {
+        return $this->boardTopics;
+    }
+
+    public function addBoardTopic(BoardTopic $boardTopic): self
+    {
+        if (!$this->boardTopics->contains($boardTopic)) {
+            $this->boardTopics[] = $boardTopic;
+            $boardTopic->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardTopic(BoardTopic $boardTopic): self
+    {
+        if ($this->boardTopics->removeElement($boardTopic)) {
+            // set the owning side to null (unless already changed)
+            if ($boardTopic->getAuthor() === $this) {
+                $boardTopic->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardCategory[]
+     */
+    public function getBoardCategories(): Collection
+    {
+        return $this->boardCategories;
+    }
+
+    public function addBoardCategory(BoardCategory $boardCategory): self
+    {
+        if (!$this->boardCategories->contains($boardCategory)) {
+            $this->boardCategories[] = $boardCategory;
+            $boardCategory->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoardCategory(BoardCategory $boardCategory): self
+    {
+        if ($this->boardCategories->removeElement($boardCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($boardCategory->getAuthor() === $this) {
+                $boardCategory->setAuthor(null);
             }
         }
 

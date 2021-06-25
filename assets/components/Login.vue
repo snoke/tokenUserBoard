@@ -18,7 +18,7 @@ export default {
     components: {
     },
     mounted() {
-        this.submit(null);
+        //this.submit(null);
     },
     methods: {
         setToken(token) {
@@ -39,7 +39,7 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 })
-            .then(response => (this.setToken(response.data.token)))
+            .then(response => (this.setToken(response.data.token),this.$router.push({ name: 'Board'})))
         }
     },
 };

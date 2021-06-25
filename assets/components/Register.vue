@@ -1,5 +1,7 @@
 <template>
   <div>
+        <Navbar />
+        <BreadCrumb />
       <h1 class="text-dark">Register</h1>
       <form v-on:submit="submit" id="RegisterForm" >
         <input name="email" type="text"  placeholder="email" />

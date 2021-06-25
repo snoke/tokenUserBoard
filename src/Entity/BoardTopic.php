@@ -7,6 +7,7 @@ use App\Repository\BoardTopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass=BoardTopicRepository::class)
@@ -33,9 +34,14 @@ class BoardTopic
     private $BoardCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity=BoardPost::class, mappedBy="BoardTopic")
+     * @ORM\OneToMany(targetEntity=BoardPost::class, mappedBy="BoardTopic", orphanRemoval=true)
      */
     private $boardPosts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="boardTopics")
+     */
+    private $author;
 
     public function __construct()
     {
@@ -97,6 +103,18 @@ class BoardTopic
                 $boardPost->setBoardTopic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

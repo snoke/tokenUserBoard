@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" type="dark" class="p-3" variant="dark">
+  <b-navbar toggleable="lg" type="dark" class="p-3" variant="dark" stlye="margin-bottom:10px;">
 
            
     <b-navbar-brand> <router-link :to="{ name: 'Board'}">tokenUserBoard</router-link></b-navbar-brand>
@@ -18,19 +18,27 @@
             <em>{{$root.user.username}}</em>
           </template>
           <!--<b-dropdown-item href="#">Profile</b-dropdown-item>-->
-          <b-dropdown-item href="#" @click="logout()">Ausloggen</b-dropdown-item>
+          
+          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_USER')" ><router-link :to="{ name: 'UserProfile', params: { username: $root.user.username}}">Einstellungen</router-link></b-dropdown-item>
+          <b-dropdown-item   v-if="$root.user.roles.includes('ROLE_USER')" ><router-link :to="{ name: 'Logout'}">Ausloggen</router-link></b-dropdown-item>
+          <b-dropdown-item   v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link :to="{ name: 'Register'}">Registrieren</router-link></b-dropdown-item>
+          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link :to="{ name: 'Login'}">Einloggen</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
-  </b-navbar>
+  </b-navbar><div class="breadcrumb_seperator"></div> 
 </div>
 </template>
 
 
 <script>
+import Login from './Login';
+import Register from './Register';
+import UserProfile from './UserProfile';
 export default {
     name: "Navbar",
     components: {
+        UserProfile,Register,Login
     },
      data() {
       return {
@@ -42,9 +50,6 @@ export default {
     },
 
     methods: {
-        logout() {
-            this.$root.logout();
-        }
     }
 };
 </script>

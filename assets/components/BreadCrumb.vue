@@ -1,38 +1,16 @@
 <template>
-    <div class="breadcrumb mb-0">
-        <div class="breadcrumb_element p-3">
-            <div v-if="!category">Board</div>
-            <router-link  v-if="category" class="" :to="{ name: 'Board'}">Board</router-link>
-        </div>
-        <div v-if="category" class="breadcrumb_seperator  pt-3"> > </div>
-        <div v-if="category" class="breadcrumb_element p-3">
-            <div v-if="!topic">{{category.name}}</div>
-            <router-link  v-if="topic" :to="{ name: 'BoardCategory', params: { categoryId: category.id}}">{{category.name}}</router-link>
-        </div>
-        <div  v-if="topic" class="breadcrumb_seperator  pt-3"> > </div>
-        <div  v-if="topic" class="breadcrumb_element p-3">
-            <div >{{topic.name}}</div>
-            <!--<router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id,categoryId: category.id}}" >{{topic.name}}</router-link>-->
-        </div>
-    </div> 
+    <a v-on:click="back"><i class="fas fa-arrow-left text-primary" ></i></a>
 </template>
 
 <script>
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 export default {
     name: "BreadCrumb",
     components: {
     },
-    props: {
-        category: {},
-        topic: {},
-    },
-    mounted() {
-        
-    },
     methods: {
+        back: function (e) {
+            this.$router.go(-1);
+        }
     },
 };
 </script>
