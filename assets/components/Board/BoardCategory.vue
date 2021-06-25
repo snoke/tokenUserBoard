@@ -6,9 +6,7 @@
         <a  v-if="$route.name=='BoardCategory'">{{board_category.name}}</a>
         </div>
     <div  v-if="$route.name=='BoardCategory'">
-        <br />
-<div class="breadcrumb_seperator"></div> 
-    <ul class="list-group w-100">
+    <ul class="list-group w-100 pt">
         <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
             <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}"  class="menu-item">
                 <div class="row">

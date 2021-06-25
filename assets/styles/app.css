@@ -49,6 +49,9 @@ body,html {
  }
  .navbar {
  }
+ .pt {
+     padding-top:15px;
+ }
  .breadcrumb_seperator {
     height:15px;
     float:none;
