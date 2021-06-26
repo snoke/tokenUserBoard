@@ -7,11 +7,20 @@
           <div class="col" id="chatMessagesContainer">
             <ul>
                 <li v-for="message in messages" >
-                    <div class="alert alert-info" v-if="message.recipient!=$root.user.api">
-                        {{message.message}}
+                    <div v-if="message.recipient!=$root.user.api">
+                        <div class="alert alert-success" v-if="message.delivered!=null">
+                                
+                        <span class="row">{{message.message}}</span>
+                        <span class="row text-muted">{{message.sent}}</span>
+                        </div>
+                        <div class="alert alert-info" v-if="message.delivered==null">
+                        <span class="row">{{message.message}}</span>
+                        <span class="row text-muted">{{message.sent}}</span>
+                        </div>
                     </div>
                     <div class="alert alert-primary" v-if="message.recipient==$root.user.api">
-                        {{message.message}}
+                        <span class="row">{{message.message}}</span>
+                        <span class="row text-muted">{{message.sent}}</span>
                     </div>
                 </li>
             </ul>
@@ -30,12 +39,12 @@
         </div>
       <div class="row">
           <div class="col">
-            <textarea name="message" />
+            <textarea name="message" class="w-100" placeholder="Nachricht" id="ChatMessage" />
           </div>
         </div>
       <div class="row">
           <div class="col">
-            <input type="submit"  class="btn btn-primary" value="Nachricht schreiben"/>
+            <input type="submit"  class="w-100 btn btn-primary" value="Nachricht schreiben"/>
           </div>
         </div>
         </form>
@@ -61,6 +70,32 @@ export default {
     computed: {
     },
     methods: {
+        setDelivered(i) {
+            if (i==this.messages.length) {
+                
+                this.loading=false;
+                setTimeout(() => this.loadMessages(), 5000)
+                return true;
+            }
+            if (this.messages[i].delivered==null) {
+                var headers={'Content-Type': "application/merge-patch+json"};
+                    if (Vue.$cookies.get("Bearer")!=null) {
+                        headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+                    }
+                    axios
+                        .patch('/api/chat_messages/' + this.messages[i].id + '.json',
+                            {
+                                delivered:this.$root.getNow()
+                            },{
+                                headers
+                            }
+                            
+                        )
+                    .then(response => (this.messages[i]=response.data,this.setDelivered(i+1))).catch(error=>(this.setDelivered(i)));
+            } else {
+                return this.setDelivered(i+1);
+            }
+        },
         load() {
             var headers={'Content-Type': 'application/json',};
             if (Vue.$cookies.get("Bearer")!=null) {
@@ -82,7 +117,8 @@ export default {
                 .get('/api/getChatMessages/' + this.user.username ,{
                     headers
                 })
-            .then(response => (this.messages=response.data,this.loading=false,setTimeout(() => this.loadMessages(), 5000))).catch(error=>(this.loadMessages()));
+            .then(response => (this.messages=response.data,this.setDelivered(0))).catch(error=>(this.loadMessages()));
+            //.then(response => (this.messages=response.data,this.loading=false,setTimeout(() => this.loadMessages(), 5000))).catch(error=>(this.loadMessages()));
         },
         submit(e) {
             if (e!=null) {
@@ -104,7 +140,7 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 })
-            .then(response => (this.loadMessages()))
+            .then(response => (document.getElementById('ChatMessage').value=null,this.loadMessages()))
         }
     },
     mounted() {

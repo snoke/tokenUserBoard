@@ -24,10 +24,10 @@
           </template>
           <!--<b-dropdown-item href="#">Profile</b-dropdown-item>-->
           
-          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_USER')" ><router-link :to="{ name: 'UserProfile', params: { username: $root.user.username}}">Einstellungen</router-link></b-dropdown-item>
-          <b-dropdown-item   v-if="$root.user.roles.includes('ROLE_USER')" ><router-link :to="{ name: 'Logout'}">Ausloggen</router-link></b-dropdown-item>
-          <b-dropdown-item   v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link :to="{ name: 'Register'}">Registrieren</router-link></b-dropdown-item>
-          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link :to="{ name: 'Login'}">Einloggen</router-link></b-dropdown-item>
+          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_USER')" ><router-link class="nav-link text-primary" :to="{ name: 'UserProfile', params: { username: $root.user.username}}">Einstellungen</router-link></b-dropdown-item>
+          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_USER')" ><router-link class="nav-link text-primary"  :to="{ name: 'Logout'}">Ausloggen</router-link></b-dropdown-item>
+          <b-dropdown-item    v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link class="nav-link text-primary"  :to="{ name: 'Register'}">Registrieren</router-link></b-dropdown-item>
+          <b-dropdown-item  v-if="$root.user.roles.includes('ROLE_GUEST')" ><router-link class="nav-link text-primary"   :to="{ name: 'Login'}">Einloggen</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>

@@ -31,11 +31,21 @@ body,html {
      text-decoration: none;
      color:lightgray;
  }
+ .nav-link:Hover,.nav-link>a:Hover {
+    text-decoration: none;
+    color:lightgray;
+     
+ }
+ .nav-link,.nav-link>a {
+    text-decoration: none;
+    color:rgba(255,255,255,.55);
+     
+ }
  .navbar-brand>a {
      text-decoration: none;
      color:lightgray;
  }
- .menu-item,.breadcrumb_element>a {
+ .menu-item,.breadcrumb_element>a, .nav-link {
      text-decoration: none;
  }
  .breadcrumb_element,.breadcrumb_divider {
