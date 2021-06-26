@@ -38,7 +38,7 @@
 <div>
   <b-dropdown text="Aktion" class="m-md-2" variant="primary">
     <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardPostEdit', params: { categoryId:board_category.id,topicId:board_topic.id,postId:post.id }}">Bearbeiten</router-link></b-dropdown-item>
-    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-divider  v-if="$root.user.roles.includes('ROLE_MODERATOR')"></b-dropdown-divider>
     <a href="#" v-on:click="remove(post.id)" v-if="$root.user.roles.includes('ROLE_MODERATOR')"><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
   </b-dropdown>
 </div>

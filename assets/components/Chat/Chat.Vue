@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+import Vue from 'vue'
 export default {
     name: "Chat",
     components: {
@@ -15,8 +15,9 @@ export default {
     },
     computed: {
     },
-
     methods: {
     },
+    mounted() {
+    }
 };
 </script>

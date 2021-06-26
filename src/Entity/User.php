@@ -71,11 +71,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $boardCategories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChatMessage::class, mappedBy="author")
+     */
+    private $chatMessagesAuthor;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ChatMessage::class, mappedBy="recipient")
+     */
+    private $chatMessagesRecipient;
+
     public function __construct()
     {
         $this->boardPosts = new ArrayCollection();
         $this->boardTopics = new ArrayCollection();
         $this->boardCategories = new ArrayCollection();
+        $this->chatMessagesAuthor = new ArrayCollection();
+        $this->chatMessagesRecipient = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -262,6 +274,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($boardCategory->getAuthor() === $this) {
                 $boardCategory->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChatMessage[]
+     */
+    public function getChatMessagesAuthor(): Collection
+    {
+        return $this->chatMessagesAuthor;
+    }
+
+    public function addChatMessageAuthor(ChatMessage $chatMessage): self
+    {
+        if (!$this->chatMessagesAuthor->contains($chatMessage)) {
+            $this->chatMessagesAuthor[] = $chatMessage;
+            $chatMessage->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatMessageAuthor(ChatMessage $chatMessage): self
+    {
+        if ($this->chatMessagesAuthor->removeElement($chatMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($chatMessage->getAuthor() === $this) {
+                $chatMessage->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChatMessage[]
+     */
+    public function getChatMessagesRecipient(): Collection
+    {
+        return $this->chatMessagesRecipient;
+    }
+
+    public function addChatMessagesRecipient(ChatMessage $chatMessagesRecipient): self
+    {
+        if (!$this->chatMessagesRecipient->contains($chatMessagesRecipient)) {
+            $this->chatMessagesRecipient[] = $chatMessagesRecipient;
+            $chatMessagesRecipient->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatMessagesRecipient(ChatMessage $chatMessagesRecipient): self
+    {
+        if ($this->chatMessagesRecipient->removeElement($chatMessagesRecipient)) {
+            // set the owning side to null (unless already changed)
+            if ($chatMessagesRecipient->getRecipient() === $this) {
+                $chatMessagesRecipient->setRecipient(null);
             }
         }
 

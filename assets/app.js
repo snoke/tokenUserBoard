@@ -25,6 +25,8 @@ import PostForm from './components/Board/Form/PostForm'
 import TopicForm from './components/Board/Form/TopicForm'
 import UserProfile from './components/User/UserProfile'
 import User from './components/User/User'
+import Chat from './components/Chat/Chat'
+import ChatUser from './components/Chat/ChatUser'
 Vue.use(VueRouter)
 const router = new VueRouter({  
     mode:'history',
@@ -91,6 +93,18 @@ const router = new VueRouter({
                         props: true,
                 },
             ]
+        },
+        { 
+            name: "Chat",
+            path: '/Chat', 
+            component:  Chat,
+            props: true,
+        },
+        { 
+            name: "ChatUser",
+            path: '/Chat/:username', 
+            component:  ChatUser,
+            props: true,
         },
         { 
             name: "User",
