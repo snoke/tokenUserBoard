@@ -28,13 +28,6 @@
         </div>
       <div class="row">
           <div class="col">
-              <!--
-        <div  v-if="this.loading == 1" class=" d-flex justify-content-center w-100 p-3">
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only" ></span>
-            </div>
-        </div>
-        -->
           </div>
         </div>
       <div class="row">
@@ -66,8 +59,6 @@ export default {
         }
     },
     created () {
-    },
-    computed: {
     },
     methods: {
         setDelivered(i) {
