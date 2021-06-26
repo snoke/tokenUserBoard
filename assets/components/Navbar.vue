@@ -15,7 +15,8 @@
           <router-link :to="{ name: 'Board'}">Board</router-link>
           </b-nav-item>
         <b-nav-item>
-          <router-link :to="{ name: 'Chat'}">Chat</router-link>
+          <router-link :to="{ name: 'Chat'}" v-if="$root.user.roles.includes('ROLE_USER')">Chat</router-link>
+          <a v-if="$root.user.roles.includes('ROLE_GUEST')" >Chat</a>
           </b-nav-item>
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
