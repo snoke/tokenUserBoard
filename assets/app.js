@@ -13,6 +13,8 @@ import './bootstrap';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router'
+import Chat from './components/Chat/Chat.vue'
+import ChatUser from './components/Chat/ChatUser.vue'
 import App from './components/App.vue'
 import Auth from './components/Auth/Auth.vue'
 import Login from './components/Auth/Login.vue'
@@ -25,8 +27,7 @@ import PostForm from './components/Board/Form/PostForm'
 import TopicForm from './components/Board/Form/TopicForm'
 import UserProfile from './components/User/UserProfile'
 import User from './components/User/User'
-import Chat from './components/Chat/Chat.vue'
-import ChatUser from './components/Chat/ChatUser.vue'
+import Test from './components/Test'
 Vue.use(VueRouter)
 const router = new VueRouter({  
     mode:'history',
