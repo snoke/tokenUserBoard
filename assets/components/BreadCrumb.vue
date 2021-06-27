@@ -8,14 +8,14 @@
                     <div class="breadcrumb_divider">
                         <i class="fas fa-angle-right"></i>
                     </div>
-                    <span  class="breadcrumb_item">{{breadcrumb.title}}</span>
+                    <span  class=" breadcrumb_item-active">{{breadcrumb.title}}</span>
                 </div>
 
                 <div v-if="index!=breadcrumbs.length-1"  class="text-primary">
                     <div class="breadcrumb_divider">
                         <i class="fas fa-angle-right"></i>
                     </div>
-                   <router-link  class="breadcrumb_item breadcrumb_item-active" :to="{ name: breadcrumb.target,params:breadcrumb.params}">{{breadcrumb.title}}</router-link>
+                   <router-link  class="breadcrumb_item" :to="{ name: breadcrumb.target,params:breadcrumb.params}">{{breadcrumb.title}}</router-link>
                 </div>
 
             </div>

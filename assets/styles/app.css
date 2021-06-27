@@ -74,5 +74,5 @@ body,html {
      text-decoration: none;
  }
  .breadcrumb_item-active {
-
+    float:left;
  }
