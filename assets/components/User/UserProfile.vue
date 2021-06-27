@@ -36,9 +36,24 @@ export default {
     computed: {
     },
     mounted() {
+        this.setBreadCrumb();
             this.load();
     },
     methods: {
+      setBreadCrumb() {
+          this.$root.$emit('setBreadCrumb', [
+              {
+                  title:"User",
+                  target: 'User',
+                  params: {},
+              },
+              {
+                  title:this.$route.params.username,
+                  target: 'UserProfile',
+                  params: {username:this.$route.params.username},
+              },
+          ])
+      },
       click() {
         this.$root.$emit(
           'openChat',this.user

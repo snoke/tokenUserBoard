@@ -14,7 +14,20 @@ export default {
     computed: {
     },
 
+    mounted() {
+        this.setBreadCrumb();
+            this.load();
+    },
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('setBreadCrumb', [
+                {
+                    title:"User",
+                    target: 'User',
+                    params: {},
+                },
+            ])
+        },
     },
 };
 </script>

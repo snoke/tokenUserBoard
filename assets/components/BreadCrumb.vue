@@ -15,7 +15,7 @@
                     <div class="breadcrumb_divider">
                         <i class="fas fa-angle-right"></i>
                     </div>
-                   <router-link  class="breadcrumb_item" :to="{ name: breadcrumb.target,params:breadcrumb.params}">{{breadcrumb.title}}</router-link>
+                   <router-link  class="breadcrumb_item breadcrumb_item-active" :to="{ name: breadcrumb.target,params:breadcrumb.params}">{{breadcrumb.title}}</router-link>
                 </div>
 
             </div>
@@ -34,7 +34,7 @@ export default {
         }
     },
     mounted() {
-        this.$root.$on('addBreadCrumbElement', (elements) => {
+        this.$root.$on('setBreadCrumb', (elements) => {
             this.breadcrumbs=[];
             elements.forEach(e=>  this.breadcrumbs.push(e));
         })

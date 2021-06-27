@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100" style="float:left;">
+  <div class="w-100 pt" style="float:left;">
       <ul class="list-group w-100">
             <li v-for="user in filterUsers"  class="list-group-item w-100" >
                 <router-link :to="{ name: 'ChatUser', params: { username: user.username}}" >
@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         setBreadCrumb() {
-            this.$root.$emit('addBreadCrumbElement', [
+            this.$root.$emit('setBreadCrumb', [
                 {
                     title:"Chat",
                     target: 'Chat',

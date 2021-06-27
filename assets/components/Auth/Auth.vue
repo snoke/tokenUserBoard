@@ -26,7 +26,7 @@ export default {
 
     methods: {
         setBreadCrumb() {
-            this.$root.$emit('addBreadCrumbElement', [
+            this.$root.$emit('setBreadCrumb', [
                 {
                     title:"Auth",
                     target: 'Auth',

@@ -65,7 +65,7 @@ export default {
     },
     methods: {
         setBreadCrumb() {
-            this.$root.$emit('addBreadCrumbElement', [{
+            this.$root.$emit('setBreadCrumb', [{
                 title:"Board",
                 target: 'Board',
                 params: {},

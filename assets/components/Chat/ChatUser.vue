@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         setBreadCrumb() {
-            this.$root.$emit('addBreadCrumbElement', [
+            this.$root.$emit('setBreadCrumb', [
                 {
                     title:"Chat",
                     target: 'Chat',
@@ -148,8 +148,8 @@ export default {
         }
     },
     mounted() {
-        this.setBreadCrumb();
         this.load();
+        this.setBreadCrumb();
         //this.$root.$on('openChat', (user) => { alert("chat with " + user.username)})
     }
 };
