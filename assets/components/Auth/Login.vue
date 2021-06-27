@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-100" style="float:left;">
       <h1 class="text-dark">Login</h1>
       <form v-on:submit="submit" id="loginForm" >
         <input name="username"  type="text" placeholder="username" value="test" />

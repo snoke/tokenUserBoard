@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <br />
+  <div class="w-100" style="float:left;">
       <h1 class="text-dark">Chat</h1>
       <ul class="list-group w-100">
             <li v-for="user in filterUsers"  class="list-group-item w-100" >

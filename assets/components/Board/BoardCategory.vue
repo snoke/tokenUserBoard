@@ -1,28 +1,28 @@
 <template>
-<div>
+  <div class="w-100" style="float:left;">
     <div  v-if="$route.name=='BoardCategory'">
-    <ul class="list-group w-100 pt">
-        <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
-            <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}"  class="menu-item">
-                <div class="row">
-                    <div class="col-lg d-flex justify-content-start ">
-                        {{topic.name}}
-                    </div>
-                    <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') "  class="col-sm-1 d-flex justify-content-center">
-                        <div>
-                            <b-dropdown text="Aktion" class="m-md-2" variant="primary">    
-                                <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardTopicEdit', params: { categoryId:board_category.id,topicId:topic.id }}">Bearbeiten</router-link></b-dropdown-item>
+        <ul class="list-group w-100 pt">
+            <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
+                <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}"  class="menu-item">
+                    <div class="row">
+                        <div class="col-lg d-flex justify-content-start ">
+                            {{topic.name}}
+                        </div>
+                        <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') "  class="col-sm-1 d-flex justify-content-center">
+                            <div>
+                                <b-dropdown text="Aktion" class="m-md-2" variant="primary">    
+                                    <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardTopicEdit', params: { categoryId:board_category.id,topicId:topic.id }}">Bearbeiten</router-link></b-dropdown-item>
 
-                                <b-dropdown-item class="" >Verschieben</b-dropdown-item>
-                                <b-dropdown-divider ></b-dropdown-divider>
-                                <a href="#" v-on:click="remove(topic.id)" ><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
-                            </b-dropdown>
+                                    <b-dropdown-item class="" >Verschieben</b-dropdown-item>
+                                    <b-dropdown-divider ></b-dropdown-divider>
+                                    <a href="#" v-on:click="remove(topic.id)" ><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
+                                </b-dropdown>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </router-link>
-         </li>
-    </ul>
+                </router-link>
+            </li>
+        </ul>
         <div  v-if="this.loading == 1" class=" d-flex justify-content-center w-100 p-3">
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only" ></span>

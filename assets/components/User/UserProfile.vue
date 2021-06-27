@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <br />
+  <div class="w-100" style="float:left;">
       <h1 class="text-dark">{{user.username}}</h1>
           <div class="row">
             <div class="col">

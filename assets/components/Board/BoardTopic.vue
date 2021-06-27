@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div class="w-100" style="float:left;">
     <div  v-if="$route.name=='BoardTopic'">
     <ul class="list-group  w-100 pt">
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">

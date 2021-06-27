@@ -1,7 +1,5 @@
 <template>
 <div>
-        <Navbar />
-        <BreadCrumb />
     <router-view />
 </div>
 </template>
