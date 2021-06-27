@@ -1,6 +1,5 @@
 <template>
   <div class="w-100" style="float:left;">
-      <h1 class="text-dark">Chat mit {{user.username}}</h1>
       <form id="ChatMessageForm"  v-on:submit="submit" >
       <div class="row">
           <div class="col" id="chatMessagesContainer">
