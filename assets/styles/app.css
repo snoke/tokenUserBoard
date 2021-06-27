@@ -53,6 +53,9 @@ body,html {
      padding-left:10px;
      padding-right:5px;
  }
+.breadcrumb_divider,.breadcrumb_divider>i {
+     opacity:0.25;
+ }
  .list-menu-item:hover {
      background-color:#fafafa;
  }
@@ -66,4 +69,7 @@ body,html {
  .breadcrumb_seperator {
     height:15px;
     float:none;
+ }
+ .breadcrumb_item {
+     text-decoration: none;
  }
