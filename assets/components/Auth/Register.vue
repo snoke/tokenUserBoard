@@ -21,8 +21,25 @@ export default {
     },
     computed: {
     },
+    mounted() {
+        this.setBreadCrumb();
+    },
 
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Auth",
+                    target: 'Auth',
+                    params: {},
+                },
+                {
+                    title:"Register",
+                    target: 'Register',
+                    params: {},
+                },
+            ])
+        },
         handleError(error) {
             alert(error.response);
         },

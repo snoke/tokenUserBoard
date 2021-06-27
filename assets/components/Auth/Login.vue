@@ -18,9 +18,24 @@ export default {
     components: {
     },
     mounted() {
+        this.setBreadCrumb();
         //this.submit(null);
     },
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Auth",
+                    target: 'Auth',
+                    params: {},
+                },
+                {
+                    title:"Login",
+                    target: 'Login',
+                    params: {},
+                },
+            ])
+        },
         setToken(token) {
             Vue.$cookies.set('Bearer',token);
             this.$root.$emit('userAuthenticated', 'userAuthenticated')

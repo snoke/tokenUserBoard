@@ -1,7 +1,7 @@
 <template>
   <div>
     <br />
-      <h1 class="text-dark">{{user.username}}</h1>
+      <h1 class="text-dark">Chat mit {{user.username}}</h1>
       <form id="ChatMessageForm"  v-on:submit="submit" >
       <div class="row">
           <div class="col" id="chatMessagesContainer">
@@ -62,6 +62,20 @@ export default {
     created () {
     },
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Chat",
+                    target: 'Chat',
+                    params: {},
+                },
+                {
+                    title:this.$route.params.username,
+                    target: 'ChatUser',
+                    params: {username:this.$route.params.username},
+                },
+            ])
+        },
         setDelivered(i) {
             if (i==this.messages.length) {
                 
@@ -136,6 +150,7 @@ export default {
         }
     },
     mounted() {
+        this.setBreadCrumb();
         this.load();
         //this.$root.$on('openChat', (user) => { alert("chat with " + user.username)})
     }

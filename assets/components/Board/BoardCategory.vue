@@ -1,10 +1,5 @@
 <template>
 <div>
-<div class="breadcrumb_divider">></div> 
-    <div class="breadcrumb_element" >
-        <router-link :to="{ name: 'BoardCategory',params:{categoryId:board_category.id}}"  v-if="$route.name!='BoardCategory'">{{board_category.name}}</router-link>
-        <a  v-if="$route.name=='BoardCategory'">{{board_category.name}}</a>
-        </div>
     <div  v-if="$route.name=='BoardCategory'">
     <ul class="list-group w-100 pt">
         <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
@@ -83,11 +78,19 @@ export default {
             .then(response => (this.$router.go(0))).catch(error=>(this.remove(topicId)));
         },
         setBreadCrumb() {
-            this.$root.$emit('addBreadCrumb', {
-                title:this.board_category.name,
-                target: 'BoardCategory',
-                params: {categoryId:this.board_category.id},
-            })
+            
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Board",
+                    target: 'Board',
+                    params: {}
+                },
+                {
+                    title:this.board_category.name,
+                    target: 'BoardCategory',
+                    params: {categoryId:this.board_category.id},
+                }
+            ])
         },
         setReady(i) {
             if (i==this.board_category.boardTopics.length) {

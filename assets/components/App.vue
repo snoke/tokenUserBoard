@@ -2,6 +2,7 @@
 
   <div class="h-100">
           <Navbar />
+          <BreadCrumb />
         <router-view>
         </router-view>
         <Footer />

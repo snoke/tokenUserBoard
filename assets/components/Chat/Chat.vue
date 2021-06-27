@@ -42,9 +42,19 @@ export default {
         }
     },
     mounted() {
+        this.setBreadCrumb();
             this.load();
     },
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Chat",
+                    target: 'Chat',
+                    params: {},
+                },
+            ])
+        },
         load() {
             var headers={'Content-Type': 'application/json',};
             if (Vue.$cookies.get("Bearer")!=null) {

@@ -21,11 +21,21 @@ export default {
       }
     },
     mounted () {
+        this.setBreadCrumb();
     },
     computed: {
     },
 
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Auth",
+                    target: 'Auth',
+                    params: {},
+                },
+            ])
+        },
     }
 };
 </script>

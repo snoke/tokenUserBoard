@@ -1,9 +1,5 @@
 <template>
-<div><div class="breadcrumb_divider">></div> 
-    <div class="breadcrumb_element" >
-        <router-link v-if="$route.name!='BoardTopic'" :to="{ name: 'BoardTopic',params:{topidId:board_topic.id,categoryId:board_category.id}}">{{board_topic.name}}</router-link>
-        <a v-if="$route.name=='BoardTopic'" >{{board_topic.name}}</a>
-        </div>
+<div>
     <div  v-if="$route.name=='BoardTopic'">
     <ul class="list-group  w-100 pt">
         <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
@@ -90,6 +86,25 @@ export default {
         this.load()
     },
     methods: {
+        setBreadCrumb() {
+            this.$root.$emit('addBreadCrumbElement', [
+                {
+                    title:"Board",
+                    target: 'Board',
+                    params: {}
+                },
+                {
+                    title:this.board_category.name,
+                    target: 'BoardCategory',
+                    params: {categoryId:this.board_category.id},
+                },
+                {
+                    title:this.board_topic.name,
+                    target: 'BoardTopic',
+                    params: {topicId:this.board_topic.id,categoryId:this.board_category.id},
+                }
+            ])
+        },
         remove(postId) {
 
             var headers={'Content-Type': "application/merge-patch+json"};
@@ -129,7 +144,7 @@ export default {
                 .get('/api/board_topics/'+this.$route.params.topicId+'.json',{
                     headers
                 })
-            .then(response => (this.board_topic = response.data,this.loadPosts())).catch(error=>(this.loadTopic()));
+            .then(response => (this.board_topic = response.data,this.setBreadCrumb(),this.loadPosts())).catch(error=>(this.loadTopic()));
         },
         loadAuthor(author,i,items) {
             var headers={'Content-Type': 'application/json',};

@@ -50,7 +50,8 @@ body,html {
  }
  .breadcrumb_element,.breadcrumb_divider {
     float:left;
-     padding-left:15px;
+     padding-left:10px;
+     padding-right:5px;
  }
  .list-menu-item:hover {
      background-color:#fafafa;

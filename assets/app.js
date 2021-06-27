@@ -37,63 +37,54 @@ const router = new VueRouter({
             path: '/Board', 
             component:  Board,
             props: true,
-            children: [
-                { 
-                        name: "BoardCategory",
-                        path: '/Board/:categoryId', 
-                        component:  BoardCategory,
-                        props: true,
-                        children: [
-                            { 
-                                    name: "BoardTopic",
-                                    path: '/Board/:categoryId/:topicId', 
-                                    component:  BoardTopic,
-                                    props: true,
-                                    children:[
-                                        { 
-                                            name: "BoardTopicEdit",
-                                            path: '/Board/:categoryId/:topicId/edit', 
-                                            component:  TopicForm,
-                                            props: true,
-                                         },
-                                        
-                                        { 
-                                            name: "BoardPostEdit",
-                                            path: '/Board/:categoryId/:topicId/:postId/edit', 
-                                            component:  PostForm,
-                                            props: true,
-                                         },
-                                    ]
-                            },
-                        ]
-                },
-            ]
+        },
+        { 
+            name: "BoardCategory",
+            path: '/Board/:categoryId', 
+            component:  BoardCategory,
+            props: true,
+        },
+        { 
+            name: "BoardTopic",
+            path: '/Board/:categoryId/:topicId', 
+            component:  BoardTopic,
+            props: true,
+        },
+        { 
+            name: "BoardTopicEdit",
+            path: '/Board/:categoryId/:topicId/edit', 
+            component:  TopicForm,
+            props: true,
+        },
+        { 
+            name: "BoardPostEdit",
+            path: '/Board/:categoryId/:topicId/:postId/edit', 
+            component:  PostForm,
+            props: true,
         },
         { 
             name: "Auth",
             path: '/Auth', 
             component:  Auth,
             props: true,
-            children: [
-                { 
-                        name: "Register",
-                        path: '/Auth/Register', 
-                        component:  Register,
-                        props: true,
-                },
-                { 
-                        name: "Login",
-                        path: '/Auth/Login', 
-                        component:  Login,
-                        props: true,
-                },
-                { 
-                        name: "Logout",
-                        path: '/Auth/Logout', 
-                        component:  Logout,
-                        props: true,
-                },
-            ]
+        },     
+        { 
+            name: "Register",
+            path: '/Auth/Register', 
+            component:  Register,
+            props: true,
+        },
+        { 
+            name: "Login",
+            path: '/Auth/Login', 
+            component:  Login,
+            props: true,
+        },
+        { 
+            name: "Logout",
+            path: '/Auth/Logout', 
+            component:  Logout,
+            props: true,
         },
         { 
             name: "Chat",
@@ -112,14 +103,12 @@ const router = new VueRouter({
             path: '/User', 
             component:  User,
             props: true,
-            children: [
-                { 
-                        name: "UserProfile",
-                        path: '/User/:username', 
-                        component:  UserProfile,
-                        props: true,
-                },
-            ]
+        },
+        { 
+            name: "UserProfile",
+            path: '/User/:username', 
+            component:  UserProfile,
+            props: true,
         },
     ]
 });
