@@ -36,8 +36,6 @@ class AppController extends AbstractController
     }
 
     /**
-     * this method extracts encodes the password
-     * 
      * @Route("api/signup", methods={"POST","PUT"})
      */
     public function signup(UserRepository $users, PasswordEncoder $encoder,Request $request): Response
