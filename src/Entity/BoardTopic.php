@@ -43,6 +43,11 @@ class BoardTopic
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="datetime", nullable="true")
+     */
+    private $created;
+
     public function __construct()
     {
         $this->boardPosts = new ArrayCollection();
@@ -115,6 +120,18 @@ class BoardTopic
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
 
         return $this;
     }

@@ -89,8 +89,10 @@ export default {
             
             axios
                 .post('/api/board_topics',{
+                    author:'/api/users/'+this.$root.user.username,
                     BoardCategory:'/api/board_categories/'+this.$route.params.categoryId,
-                    name
+                    name,
+                    created:this.$root.getNow(),
                 },
                 {
                     headers: {

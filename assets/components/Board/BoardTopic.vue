@@ -6,24 +6,26 @@
                 <div class="row">
                     <div class="col-lg d-flex justify-content-start ">
   <b-card :title=board_topic.name  v-if="post.deleted==true" class="w-100">
-    <b-card-text>
+    <b-card-text class="pt">
         Diese Nachricht wurde entfernt.
     </b-card-text>
   </b-card>
   
   <b-card :title=board_topic.name  v-if="post.deleted==false && index==0" class="w-100 ">
     <b-card-sub-title>
+       am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
        von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
     </b-card-sub-title>
-    <b-card-text>
+    <b-card-text class="pt">
 {{post.message}}
     </b-card-text>
   </b-card>
   <b-card   v-if="post.deleted==false && index!=0" class="w-100 comment">
     <b-card-sub-title>
+       am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
        von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
     </b-card-sub-title>
-    <b-card-text>
+    <b-card-text class="pt">
 {{post.message}}
     </b-card-text>
   </b-card>
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Vue from 'vue'
 import PostForm from './Form/PostForm.vue'
 import Navbar from './../Navbar.vue'
@@ -86,6 +89,12 @@ export default {
         this.load()
     },
     methods: {
+        filterTime(value) {
+                return moment(String(value)).format('hh:mm')
+        },
+        filterDate(value) {
+                return moment(String(value)).format('DD.MM.YYYY')
+        },
         setBreadCrumb() {
             this.$root.$emit('setBreadCrumb', [
                 {

@@ -5,8 +5,12 @@
             <li v-bind:key="topic.id" v-for="topic in board_topics" class="list-group-item list-menu-item" @click="$root.$emit('update')">
                 <router-link :to="{ name: 'BoardTopic', params: { topicId: topic.id}}"  class="menu-item">
                     <div class="row">
-                        <div class="col-lg d-flex justify-content-start ">
+                        <div class="col-lg-auto d-flex justify-content-start ">
                             {{topic.name}}
+                    </div>
+                        <div class="col d-flex justify-content-start ">
+       <span class="text-muted">am {{filterDate(topic.created)}} um {{filterTime(topic.created)}} Uhr
+       von <router-link :to="{ name: 'UserProfile', params: { username: users[topic.author].username }}">{{users[topic.author].username}}</router-link></span>
                         </div>
                         <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') "  class="col-sm-1 d-flex justify-content-center">
                             <div>
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Navbar from './../Navbar.vue'
 import Vue from 'vue'
 import BreadCrumb from './../BreadCrumb.vue'
@@ -53,6 +58,7 @@ export default {
             loading:1,
             board_category:null,
             board_topics:[],
+            users:[],
         }
     },
     created () {
@@ -64,6 +70,12 @@ export default {
         this.load()
     },
     methods: {
+        filterTime(value) {
+                return moment(String(value)).format('hh:mm')
+        },
+        filterDate(value) {
+                return moment(String(value)).format('DD.MM.YYYY')
+        },
         remove(topicId) {
 
             var headers={'Content-Type': "application/merge-patch+json"};
@@ -110,6 +122,27 @@ export default {
                 })
             .then(response => (this.board_category = response.data,this.setBreadCrumb(),this.loadTopics())).catch(error=>(this.load()));
         },
+        loadAuthor(author,i,items) {
+            var headers={'Content-Type': 'application/json',};
+            if (Vue.$cookies.get("Bearer")!=null) {
+                headers.Authorization = "Bearer " + Vue.$cookies.get("Bearer");
+            }
+            if (i==items.length) {
+                this.setReady(i)
+                return;
+            }
+            if (this.users[author]) {
+                if (!this.setReady(i)) {
+                    this.loadPost(items,i+1)
+                }
+                return;
+            }
+            axios
+                .get(author + '.json',{
+                    headers
+                })
+            .then(response => (this.users[author]=response.data,this.setReady(i),this.loadTopic(items,i+1))).catch(error=>(this.loadAuthor(author,i,items)));
+        },
         loadTopic(items,i) {
             
             var headers={'Content-Type': 'application/json',};
@@ -125,12 +158,9 @@ export default {
                 .get(items[i]+'.json',{
                      headers
                 })
-            .then(response => (this.board_topics[i]=response.data,this.loadTopic(items,i+1))).catch(error=>(this.loadTopic(item,i)));
+            .then(response => (this.board_topics[i]=response.data,this.loadAuthor(response.data.author,i,items))).catch(error=>(this.loadTopic(item,i)));
         },
         loadTopics() {
-            if (this.board_category.boardTopics.length==0) {
-                this.loading=0
-            }
             this.loadTopic(this.board_category.boardTopics,0 )
         },
     },
