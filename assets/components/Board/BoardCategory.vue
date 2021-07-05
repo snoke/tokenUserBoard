@@ -9,8 +9,10 @@
                             {{topic.name}}
                     </div>
                         <div class="col d-flex justify-content-start ">
-       <span class="text-muted">am {{filterDate(topic.created)}} um {{filterTime(topic.created)}} Uhr
-       von <router-link :to="{ name: 'UserProfile', params: { username: users[topic.author].username }}">{{users[topic.author].username}}</router-link></span>
+       <span class="text-muted">
+       von <router-link :to="{ name: 'UserProfile', params: { username: users[topic.author].username }}">{{users[topic.author].username}}</router-link>
+           am {{filterDate(topic.created)}} um {{filterTime(topic.created)}} Uhr
+       </span>
                         </div>
                         <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') "  class="col-sm-1 d-flex justify-content-center">
                             <div>

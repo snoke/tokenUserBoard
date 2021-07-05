@@ -1,58 +1,55 @@
 <template>
   <div class="w-100" style="float:left;">
     <div  v-if="$route.name=='BoardTopic'">
-    <ul class="list-group  w-100 pt">
-        <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
+        <ul class="list-group  w-100 pt">
+            <li v-bind:key="post.id" v-for="(post, index) in board_posts"  class="list-group-item list-menu-item">
                 <div class="row">
                     <div class="col-lg d-flex justify-content-start ">
-  <b-card :title=board_topic.name  v-if="post.deleted==true" class="w-100">
-    <b-card-text class="pt">
-        Diese Nachricht wurde entfernt.
-    </b-card-text>
-  </b-card>
-  
-  <b-card :title=board_topic.name  v-if="post.deleted==false && index==0" class="w-100 ">
-    <b-card-sub-title>
-       am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
-       von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
-    </b-card-sub-title>
-    <b-card-text class="pt">
-{{post.message}}
-    </b-card-text>
-  </b-card>
-  <b-card   v-if="post.deleted==false && index!=0" class="w-100 comment">
-    <b-card-sub-title>
-       am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
-       von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
-    </b-card-sub-title>
-    <b-card-text class="pt">
-{{post.message}}
-    </b-card-text>
-  </b-card>
-  
-
+                        <b-card :title=board_topic.name  v-if="post.deleted==true" class="w-100">
+                            <b-card-text class="pt">
+                                Diese Nachricht wurde entfernt.
+                            </b-card-text>
+                        </b-card>
+                        <b-card :title=board_topic.name  v-if="post.deleted==false && index==0" class="w-100 ">
+                            <b-card-sub-title>
+                            von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
+                            am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
+                            </b-card-sub-title>
+                            <b-card-text class="pt">
+                        {{post.message}}
+                            </b-card-text>
+                        </b-card>
+                        <b-card   v-if="post.deleted==false && index!=0" class="w-100 comment">
+                            <b-card-sub-title>
+                            von <router-link :to="{ name: 'UserProfile', params: { username: users[post.author].username }}">{{users[post.author].username}}</router-link>
+                            am {{filterDate(post.created)}} um {{filterTime(post.created)}} Uhr
+                            </b-card-sub-title>
+                            <b-card-text class="pt">
+                                {{post.message}}
+                            </b-card-text>
+                        </b-card>
                     </div>
                     <div  v-if="$root.user.roles.includes('ROLE_MODERATOR') || post.author==$root.user.api"  class="col-sm-1 d-flex justify-content-center">
-<div>
-  <b-dropdown text="Aktion" class="m-md-2" variant="primary">
-    <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardPostEdit', params: { categoryId:board_category.id,topicId:board_topic.id,postId:post.id }}">Bearbeiten</router-link></b-dropdown-item>
-    <b-dropdown-divider  v-if="$root.user.roles.includes('ROLE_MODERATOR')"></b-dropdown-divider>
-    <a href="#" v-on:click="remove(post.id)" v-if="$root.user.roles.includes('ROLE_MODERATOR')"><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
-  </b-dropdown>
-</div>
+                        <div>
+                            <b-dropdown text="Aktion" class="m-md-2" variant="primary">
+                                <b-dropdown-item  class=" "><router-link :to="{ name: 'BoardPostEdit', params: { categoryId:board_category.id,topicId:board_topic.id,postId:post.id }}">Bearbeiten</router-link></b-dropdown-item>
+                                <b-dropdown-divider  v-if="$root.user.roles.includes('ROLE_MODERATOR')"></b-dropdown-divider>
+                                <a href="#" v-on:click="remove(post.id)" v-if="$root.user.roles.includes('ROLE_MODERATOR')"><b-dropdown-item class=" btn-danger">Löschen</b-dropdown-item></a>
+                            </b-dropdown>
+                        </div>
                     </div>
                 </div>
-         </li>
-    </ul>
+            </li>
+        </ul>
         <div  v-if="this.loading == 1" class=" d-flex justify-content-center w-100 p-3">
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only" ></span>
             </div>
         </div>
         <PostForm v-if="$root.user.roles.includes('ROLE_USER')" />
-                    </div>
-        <router-view />
-</div>
+    </div>
+    <router-view />
+  </div>
 </template>
 
 <script>
