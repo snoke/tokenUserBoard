@@ -1,5 +1,7 @@
 # tokenUserBoard
-VueJS Community Platform with Board and Chat using Api-Platform and JWT-Authentication
+VueJS playground Project
+
+Community Platform with Board and Chat using Api-Platform and JWT-Authentication
 
 Todo: 
 * replace ajax chat with websockets
